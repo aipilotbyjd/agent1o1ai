@@ -12,17 +12,17 @@ import { TemplateEndpoints as E } from './templates.endpoints';
 export const TemplateService = {
 	list: (filters?: ITemplateFilters, signal?: AbortSignal) =>
 		axiosClient
-			.get<TApiResponse<ITemplate[]>>(E.list, { params: filters, signal })
+			.get<TApiResponse<ITemplate[]>>(E.list(), { params: filters, signal })
 			.then(unwrap<ITemplate[]>),
 
 	featured: (signal?: AbortSignal) =>
 		axiosClient
-			.get<TApiResponse<ITemplate[]>>(E.featured, { signal })
+			.get<TApiResponse<ITemplate[]>>(E.featured(), { signal })
 			.then(unwrap<ITemplate[]>),
 
 	categories: (signal?: AbortSignal) =>
 		axiosClient
-			.get<TApiResponse<TTemplateCategory[]>>(E.categories, { signal })
+			.get<TApiResponse<TTemplateCategory[]>>(E.categories(), { signal })
 			.then(unwrap<TTemplateCategory[]>),
 
 	detail: (id: string, signal?: AbortSignal) =>
