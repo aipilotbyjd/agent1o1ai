@@ -62,3 +62,20 @@ export type TTimestamps = {
 
 // Generic ID type
 export type TId = string;
+
+// Pagination params (legacy alias compatible with older feature code)
+export type IPaginationParams = {
+	page?: number;
+	per_page?: number;
+	search?: string;
+	sort?: string;
+	order?: 'asc' | 'desc';
+};
+
+// Timestamps + creator/updater metadata (used by notes, tags, etc.)
+export interface IWithActions {
+	created_at: number;
+	updated_at: number;
+	created_by?: string;
+	updated_by?: string;
+}

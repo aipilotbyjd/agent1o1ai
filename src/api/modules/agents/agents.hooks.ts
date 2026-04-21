@@ -75,6 +75,32 @@ export const useDuplicateAgent = (ws: string) => {
 	});
 };
 
+export const useAttachAgentSkill = (ws: string) => {
+	const qc = useQueryClient();
+	return useMutation({
+		mutationFn: ({ agentId, skillId }: { agentId: string; skillId: string }) =>
+			AgentService.attachSkill(ws, agentId, skillId),
+		onSuccess: (_d, { agentId }) => {
+			qc.invalidateQueries({ queryKey: agentKeys.detail(ws, agentId) });
+			notify.success('Skill attached');
+		},
+		onError: notify.fromError('Failed to attach skill'),
+	});
+};
+
+export const useDetachAgentSkill = (ws: string) => {
+	const qc = useQueryClient();
+	return useMutation({
+		mutationFn: ({ agentId, skillId }: { agentId: string; skillId: string }) =>
+			AgentService.detachSkill(ws, agentId, skillId),
+		onSuccess: (_d, { agentId }) => {
+			qc.invalidateQueries({ queryKey: agentKeys.detail(ws, agentId) });
+			notify.success('Skill detached');
+		},
+		onError: notify.fromError('Failed to detach skill'),
+	});
+};
+
 // ── Skills ───────────────────────────────────────────
 export const useAgentSkills = (ws: string) =>
 	useQuery({
