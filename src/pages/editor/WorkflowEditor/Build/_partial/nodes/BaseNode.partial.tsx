@@ -48,16 +48,16 @@ const BaseNode = ({ data, selected }: NodeProps) => {
 	return (
 		<div
 			className={[
-				'group relative min-w-[260px] overflow-hidden rounded-2xl border bg-white shadow-sm transition-all dark:bg-zinc-900',
-				'hover:shadow-md hover:-translate-y-[1px]',
+				'group relative min-w-[260px] overflow-hidden rounded-none border-2 border-editorial-ink bg-white shadow-editorial-soft transition-all',
+				'hover:shadow-editorial hover:-translate-y-[1px]',
 				hasError
-					? 'border-red-300 dark:border-red-800'
+					? 'border-rose-500'
 					: selected
-						? `${hue.border} ring-2 ${hue.ring} shadow-lg`
-						: 'border-zinc-200 dark:border-zinc-800',
+						? `${hue.border} ring-2 ${hue.ring} shadow-editorial`
+						: 'border-editorial-ink',
 			].join(' ')}>
-			{/* Accent gradient strip */}
-			<div className={`h-1 w-full bg-gradient-to-r ${gradient}`} aria-hidden='true' />
+			{/* Accent color strip */}
+			<div className={`h-1.5 w-full ${hue.bg}`} aria-hidden='true' />
 
 			{/* Running glow */}
 			{isRunning && (
@@ -76,11 +76,12 @@ const BaseNode = ({ data, selected }: NodeProps) => {
 					position={Position.Left}
 					style={{
 						top: 58 + i * 20,
-						width: 12,
-						height: 12,
+						width: 10,
+						height: 10,
 						background: PORT_TYPE_COLOR[p.type] ?? PORT_TYPE_COLOR.any,
-						border: '2px solid white',
-						boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
+						border: '2px solid #1A1A1A',
+						borderRadius: 0,
+						boxShadow: '2px 2px 0px rgba(26,26,26,0.2)',
 					}}
 				/>
 			))}
@@ -94,11 +95,12 @@ const BaseNode = ({ data, selected }: NodeProps) => {
 					position={Position.Right}
 					style={{
 						top: 58 + i * 20,
-						width: 12,
-						height: 12,
+						width: 10,
+						height: 10,
 						background: PORT_TYPE_COLOR[p.type] ?? PORT_TYPE_COLOR.any,
-						border: '2px solid white',
-						boxShadow: '0 1px 2px rgba(0,0,0,0.15)',
+						border: '2px solid #1A1A1A',
+						borderRadius: 0,
+						boxShadow: '2px 2px 0px rgba(26,26,26,0.2)',
 					}}
 				/>
 			))}
@@ -106,20 +108,20 @@ const BaseNode = ({ data, selected }: NodeProps) => {
 			{/* Header */}
 			<div className='relative flex items-center gap-2.5 px-3.5 pb-2.5 pt-3'>
 				<span
-					className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border bg-white text-lg leading-none shadow-sm dark:bg-zinc-800 ${hue.border}`}>
+					className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-none border-2 border-editorial-ink bg-white text-lg leading-none shadow-editorial-soft`}>
 					{def.icon}
 				</span>
 				<div className='min-w-0 flex-1'>
-					<div className='truncate text-sm font-semibold text-zinc-900 dark:text-zinc-100'>
+					<div className='truncate text-sm font-serif font-black italic text-editorial-ink'>
 						{d.label}
 					</div>
 					<div className='mt-0.5 flex items-center gap-1.5'>
-						<span className='text-[10px] uppercase tracking-wider text-zinc-400'>
+						<span className='font-black uppercase tracking-[0.3em] text-[9px] text-editorial-ink/60'>
 							{def.category}
 						</span>
-						<span className='text-zinc-300 dark:text-zinc-700'>·</span>
-						<span className='inline-flex items-center gap-1 text-[10px] font-medium text-zinc-500'>
-							<span className={`h-1.5 w-1.5 rounded-full ${dot}`} />
+						<span className='text-editorial-ink/30'>·</span>
+						<span className='inline-flex items-center gap-1 font-mono text-[10px] tracking-tighter text-editorial-ink/70'>
+							<span className={`h-1.5 w-1.5 rounded-none ${dot}`} />
 							{status.label}
 						</span>
 					</div>
@@ -127,7 +129,7 @@ const BaseNode = ({ data, selected }: NodeProps) => {
 			</div>
 
 			{/* Divider */}
-			<div className='mx-3.5 h-px bg-zinc-100 dark:bg-zinc-800' aria-hidden='true' />
+			<div className='mx-0 h-px bg-editorial-ink' aria-hidden='true' />
 
 			{/* Body — field preview */}
 			<div className='relative space-y-1.5 px-3.5 py-2.5'>
@@ -138,40 +140,40 @@ const BaseNode = ({ data, selected }: NodeProps) => {
 						<div
 							key={f.key}
 							className='flex items-center justify-between gap-2 text-[11px]'>
-							<span className='shrink-0 text-zinc-400'>{f.label}</span>
+							<span className='shrink-0 font-black uppercase tracking-[0.2em] text-[9px] text-editorial-ink/50'>{f.label}</span>
 							<span
-								className={`truncate font-mono ${isEmpty ? 'italic text-zinc-300 dark:text-zinc-600' : 'text-zinc-700 dark:text-zinc-200'}`}>
+								className={`truncate font-mono tracking-tighter text-[10px] ${isEmpty ? 'italic text-editorial-ink/30' : 'text-editorial-ink/80'}`}>
 								{isEmpty ? '—' : String(v).slice(0, 40)}
 							</span>
 						</div>
 					);
 				})}
 				{def.fields.length === 0 && (
-					<div className='text-[11px] italic text-zinc-400'>No settings</div>
+					<div className='text-[11px] italic text-editorial-ink/40'>No settings</div>
 				)}
 			</div>
 
 			{/* Footer meta */}
 			{(def.outputs.length > 0 || d.durationMs != null) && (
-				<div className='flex items-center justify-between gap-2 border-t border-zinc-100 bg-zinc-50/50 px-3.5 py-1.5 text-[10px] dark:border-zinc-800 dark:bg-zinc-950/30'>
+				<div className='flex items-center justify-between gap-2 border-t-2 border-editorial-ink bg-editorial-bg px-3.5 py-1.5 text-[10px]'>
 					<div className='flex min-w-0 flex-wrap gap-1'>
 						{def.outputs.slice(0, 3).map((p) => (
 							<span
 								key={p.id}
-								className='inline-flex items-center gap-1 rounded bg-white px-1.5 py-0.5 text-zinc-500 ring-1 ring-zinc-200 dark:bg-zinc-900 dark:ring-zinc-700'>
+								className='inline-flex items-center gap-1 rounded-none border border-editorial-ink bg-white px-1.5 py-0.5 text-editorial-ink/70'>
 								<span
-									className='h-1.5 w-1.5 rounded-full'
+									className='h-1.5 w-1.5 rounded-none'
 									style={{
 										backgroundColor:
 											PORT_TYPE_COLOR[p.type] ?? PORT_TYPE_COLOR.any,
 									}}
 								/>
-								<span className='font-mono'>{p.name}</span>
+								<span className='font-mono tracking-tighter text-[9px]'>{p.name}</span>
 							</span>
 						))}
 					</div>
 					{d.durationMs != null && (
-						<span className='shrink-0 font-mono tabular-nums text-zinc-500'>
+						<span className='shrink-0 font-mono tabular-nums tracking-tighter text-editorial-ink/60'>
 							{d.durationMs}ms
 						</span>
 					)}
@@ -180,8 +182,8 @@ const BaseNode = ({ data, selected }: NodeProps) => {
 
 			{/* Error banner */}
 			{d.error && (
-				<div className='border-t border-red-200 bg-red-50 px-3.5 py-2 text-[11px] text-red-700 dark:border-red-900/40 dark:bg-red-500/10 dark:text-red-300'>
-					<span className='mr-1 font-semibold'>Error:</span>
+				<div className='border-t-2 border-rose-500 bg-rose-500/10 px-3.5 py-2 text-[11px] text-rose-600'>
+					<span className='mr-1 font-black uppercase tracking-widest'>Error:</span>
 					{d.error}
 				</div>
 			)}

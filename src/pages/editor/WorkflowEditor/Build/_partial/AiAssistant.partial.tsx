@@ -216,7 +216,7 @@ const AiAssistant = () => {
 		<>
 			{/* Backdrop */}
 			<div
-				className='fixed inset-0 z-40 bg-zinc-900/20 backdrop-blur-[2px] dark:bg-zinc-950/50'
+				className='fixed inset-0 z-40 bg-editorial-ink/10 backdrop-blur-[2px]'
 				onClick={toggle}
 				aria-hidden='true'
 			/>
@@ -225,27 +225,24 @@ const AiAssistant = () => {
 			<aside
 				role='dialog'
 				aria-label='AI workflow builder'
-				className='fixed right-0 top-0 z-50 flex h-full w-full max-w-[440px] flex-col border-l border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-950'>
+				className='fixed right-0 top-0 z-50 flex h-full w-full max-w-[440px] flex-col border-l-2 border-editorial-ink bg-white shadow-editorial'>
 				{/* Header */}
-				<header className='relative overflow-hidden border-b border-zinc-200 dark:border-zinc-800'>
-					<div className='pointer-events-none absolute inset-0 bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-transparent' />
-					<div className='pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-violet-500/20 blur-3xl' />
+				<header className='relative overflow-hidden border-b-2 border-editorial-ink bg-editorial-bg'>
 					<div className='relative flex items-center justify-between px-4 py-3'>
 						<div className='flex items-center gap-2.5'>
 							<div className='relative'>
-								<div className='absolute inset-0 animate-pulse rounded-lg bg-violet-500/40 blur-md' />
-								<div className='relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-lg shadow-violet-500/30'>
+								<div className='relative flex h-9 w-9 items-center justify-center rounded-none border-2 border-editorial-ink bg-editorial-ink shadow-editorial-button'>
 									<Icon icon='Sparkles' className='text-base text-white' />
 								</div>
 							</div>
 							<div>
-								<div className='flex items-center gap-1.5 text-[13px] font-semibold text-zinc-900 dark:text-zinc-100'>
+								<div className='flex items-center gap-1.5 font-serif font-black italic text-[13px] text-editorial-ink'>
 									AI Builder
-									<span className='rounded-full bg-violet-500/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-violet-600 dark:text-violet-300'>
+									<span className='rounded-none border border-editorial-ink bg-white px-1.5 py-0.5 font-mono text-[9px] tracking-tighter text-editorial-ink/70'>
 										Beta
 									</span>
 								</div>
-								<div className='text-[11px] text-zinc-500'>
+								<div className='font-mono text-[10px] tracking-tighter text-editorial-ink/60'>
 									Describe it. I&apos;ll build it.
 								</div>
 							</div>
@@ -257,7 +254,7 @@ const AiAssistant = () => {
 									onClick={clearChat}
 									title='Clear conversation'
 									aria-label='Clear conversation'
-									className='inline-flex h-8 w-8 items-center justify-center rounded-md text-zinc-500 hover:bg-zinc-900/5 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/10 dark:hover:text-white'>
+									className='inline-flex h-8 w-8 items-center justify-center rounded-none border-2 border-transparent text-editorial-ink/60 hover:border-editorial-ink hover:text-editorial-ink'>
 									<Icon icon='Delete02' className='text-sm' />
 								</button>
 							)}
@@ -266,7 +263,7 @@ const AiAssistant = () => {
 								onClick={toggle}
 								title='Close'
 								aria-label='Close'
-								className='inline-flex h-8 w-8 items-center justify-center rounded-md text-zinc-500 hover:bg-zinc-900/5 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/10 dark:hover:text-white'>
+								className='inline-flex h-8 w-8 items-center justify-center rounded-none border-2 border-transparent text-editorial-ink/60 hover:border-editorial-ink hover:text-editorial-ink'>
 								<Icon icon='Cancel01' className='text-sm' />
 							</button>
 						</div>
@@ -291,8 +288,8 @@ const AiAssistant = () => {
 
 				{/* Templates (shown when chat is fresh) */}
 				{!hasMessages && !isThinking && (
-					<div className='border-t border-zinc-200 px-4 py-3 dark:border-zinc-800'>
-						<div className='mb-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-500'>
+					<div className='border-t-2 border-editorial-ink px-4 py-3 bg-editorial-bg'>
+						<div className='mb-2 text-[10px] font-black uppercase tracking-widest text-editorial-ink/60'>
 							Templates
 						</div>
 						<div className='grid grid-cols-2 gap-2'>
@@ -301,13 +298,13 @@ const AiAssistant = () => {
 									key={t.label}
 									type='button'
 									onClick={() => submitPrompt(t.prompt)}
-									className='group flex items-start gap-2 rounded-lg border border-zinc-200 bg-white p-2.5 text-left transition hover:border-violet-300 hover:bg-violet-50/50 hover:shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-violet-500/40 dark:hover:bg-violet-500/5'>
+									className='group flex items-start gap-2 rounded-none border-2 border-editorial-ink bg-white p-2.5 text-left transition hover:shadow-editorial-soft'>
 									<span className='text-base'>{t.icon}</span>
 									<div className='min-w-0 flex-1'>
-										<div className='truncate text-xs font-medium text-zinc-900 dark:text-zinc-100'>
+										<div className='truncate font-serif font-black italic text-xs text-editorial-ink'>
 											{t.label}
 										</div>
-										<div className='line-clamp-2 text-[10px] text-zinc-500'>
+										<div className='line-clamp-2 font-mono text-[9px] tracking-tighter text-editorial-ink/60'>
 											{t.prompt}
 										</div>
 									</div>
@@ -323,8 +320,8 @@ const AiAssistant = () => {
 						e.preventDefault();
 						submitPrompt(input);
 					}}
-					className='border-t border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-950'>
-					<div className='relative rounded-xl border border-zinc-200 bg-zinc-50 focus-within:border-violet-400 focus-within:ring-2 focus-within:ring-violet-500/20 dark:border-zinc-800 dark:bg-zinc-900 dark:focus-within:border-violet-500/60'>
+					className='border-t-2 border-editorial-ink bg-white p-3'>
+					<div className='relative rounded-none border-2 border-editorial-ink bg-editorial-bg focus-within:ring-2 focus-within:ring-editorial-ink/20'>
 						<textarea
 							ref={inputRef}
 							value={input}
@@ -332,18 +329,18 @@ const AiAssistant = () => {
 							onKeyDown={onKeyDown}
 							rows={2}
 							placeholder='Describe the workflow… (⏎ to send, ⇧⏎ for newline)'
-							className='w-full resize-none bg-transparent px-3 py-2.5 pr-12 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 dark:text-zinc-100'
+							className='w-full resize-none bg-transparent px-3 py-2.5 pr-12 text-sm text-editorial-ink outline-none placeholder:text-editorial-ink/40'
 						/>
 						<button
 							type='submit'
 							disabled={!input.trim() || isThinking}
 							title='Send'
 							aria-label='Send'
-							className='absolute bottom-2 right-2 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow shadow-violet-500/30 transition hover:shadow-md hover:shadow-violet-500/40 disabled:opacity-40 disabled:shadow-none'>
+							className='absolute bottom-2 right-2 inline-flex h-8 w-8 items-center justify-center rounded-none border-2 border-editorial-ink bg-editorial-ink text-white shadow-editorial-button disabled:opacity-40 disabled:shadow-none'>
 							<Icon icon='ArrowUp01' className='text-sm' />
 						</button>
 					</div>
-					<div className='mt-1.5 flex items-center gap-1 text-[10px] text-zinc-400'>
+					<div className='mt-1.5 flex items-center gap-1 font-mono text-[9px] tracking-tighter text-editorial-ink/50'>
 						<Icon icon='Sparkles' className='text-xs' />
 						<span>Nodes are added to the right of your existing graph.</span>
 					</div>
@@ -365,7 +362,7 @@ const MessageBubble = ({
 	if (isUser) {
 		return (
 			<div className='flex justify-end'>
-				<div className='max-w-[85%] rounded-2xl rounded-tr-sm bg-zinc-900 px-3.5 py-2 text-sm text-white shadow-sm dark:bg-white dark:text-zinc-900'>
+				<div className='max-w-[85%] rounded-none rounded-tr-sm bg-editorial-ink px-3.5 py-2 text-sm text-white shadow-editorial-soft'>
 					{message.text}
 				</div>
 			</div>
@@ -374,11 +371,11 @@ const MessageBubble = ({
 
 	return (
 		<div className='flex items-start gap-2'>
-			<div className='mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-sm'>
+			<div className='mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-none border-2 border-editorial-ink bg-editorial-ink shadow-editorial-soft'>
 				<Icon icon='Sparkles' className='text-xs text-white' />
 			</div>
 			<div className='max-w-[85%] space-y-2'>
-				<div className='rounded-2xl rounded-tl-sm border border-zinc-200 bg-white px-3.5 py-2 text-sm text-zinc-900 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100'>
+				<div className='rounded-none rounded-tl-sm border-2 border-editorial-ink bg-white px-3.5 py-2 text-sm text-editorial-ink shadow-editorial-soft'>
 					{message.text}
 				</div>
 				{message.plan && <PlanCard plan={message.plan} onApply={() => onApply(message.plan!)} />}
@@ -397,13 +394,13 @@ const PlanCard = ({ plan, onApply }: { plan: TGeneratedPlan; onApply: () => void
 	};
 
 	return (
-		<div className='overflow-hidden rounded-xl border border-zinc-200 bg-gradient-to-br from-white to-zinc-50 shadow-sm dark:border-zinc-800 dark:from-zinc-900 dark:to-zinc-950'>
-			<div className='flex items-center justify-between gap-2 border-b border-zinc-200 px-3 py-2 dark:border-zinc-800'>
-				<div className='flex items-center gap-1.5 text-[11px] font-medium text-zinc-600 dark:text-zinc-300'>
-					<Icon icon='WorkflowSquare03' className='text-sm text-violet-500' />
+		<div className='overflow-hidden rounded-none border-2 border-editorial-ink bg-white shadow-editorial-soft'>
+			<div className='flex items-center justify-between gap-2 border-b-2 border-editorial-ink bg-editorial-bg px-3 py-2'>
+				<div className='flex items-center gap-1.5 font-mono text-[10px] tracking-tighter text-editorial-ink/70'>
+					<Icon icon='WorkflowSquare03' className='text-sm text-editorial-ink' />
 					Proposed workflow
 				</div>
-				<div className='text-[10px] tabular-nums text-zinc-500'>
+				<div className='font-mono text-[10px] tabular-nums tracking-tighter text-editorial-ink/60'>
 					{plan.nodes.length} steps
 				</div>
 			</div>
@@ -416,27 +413,27 @@ const PlanCard = ({ plan, onApply }: { plan: TGeneratedPlan; onApply: () => void
 						<li
 							key={`${key}-${i}`}
 							className='flex items-center gap-2.5 py-1'>
-							<span className='flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-zinc-900/5 text-[10px] font-semibold text-zinc-500 tabular-nums dark:bg-white/10'>
+							<span className='flex h-5 w-5 shrink-0 items-center justify-center rounded-none border border-editorial-ink bg-editorial-bg font-mono text-[9px] font-medium text-editorial-ink/70 tabular-nums'>
 								{i + 1}
 							</span>
 							<span className='text-sm leading-none'>{def.icon}</span>
-							<span className='min-w-0 flex-1 truncate text-xs font-medium text-zinc-900 dark:text-zinc-100'>
+							<span className='min-w-0 flex-1 truncate font-serif font-black italic text-xs text-editorial-ink'>
 								{def.label}
 							</span>
 							{i < plan.nodes.length - 1 && (
-								<Icon icon='ArrowRight01' className='text-xs text-zinc-300 dark:text-zinc-600' />
+								<Icon icon='ArrowRight01' className='text-xs text-editorial-ink/30' />
 							)}
 						</li>
 					);
 				})}
 			</ol>
 
-			<div className='border-t border-zinc-200 bg-zinc-50 px-3 py-2 dark:border-zinc-800 dark:bg-zinc-900/50'>
+			<div className='border-t-2 border-editorial-ink bg-editorial-bg px-3 py-2'>
 				<button
 					type='button'
 					onClick={apply}
 					disabled={applied}
-					className='inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 px-3 py-1.5 text-xs font-semibold text-white shadow shadow-violet-500/30 transition hover:shadow-md hover:shadow-violet-500/40 disabled:cursor-default disabled:from-emerald-500 disabled:to-emerald-600 disabled:shadow-emerald-500/30'>
+					className='inline-flex w-full items-center justify-center gap-1.5 rounded-none border-2 border-editorial-ink bg-editorial-ink px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-white shadow-editorial-button transition hover:bg-editorial-ink/90 disabled:cursor-default disabled:border-emerald-500 disabled:bg-emerald-500 disabled:shadow-emerald-500/30'>
 					{applied ? (
 						<>
 							<Icon icon='Tick02' className='text-sm' />
@@ -457,14 +454,14 @@ const PlanCard = ({ plan, onApply }: { plan: TGeneratedPlan; onApply: () => void
 // ── Typing indicator ─────────────────────────────────────────────────
 const ThinkingBubble = () => (
 	<div className='flex items-start gap-2'>
-		<div className='mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 shadow-sm'>
+		<div className='mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-none border-2 border-editorial-ink bg-editorial-ink shadow-editorial-soft'>
 			<Icon icon='Sparkles' className='text-xs text-white' />
 		</div>
-		<div className='rounded-2xl rounded-tl-sm border border-zinc-200 bg-white px-3.5 py-3 shadow-sm dark:border-zinc-800 dark:bg-zinc-900'>
+		<div className='rounded-none rounded-tl-sm border-2 border-editorial-ink bg-white px-3.5 py-3 shadow-editorial-soft'>
 			<div className='flex items-center gap-1'>
-				<span className='h-1.5 w-1.5 animate-bounce rounded-full bg-violet-500 [animation-delay:0s]' />
-				<span className='h-1.5 w-1.5 animate-bounce rounded-full bg-violet-500 [animation-delay:0.15s]' />
-				<span className='h-1.5 w-1.5 animate-bounce rounded-full bg-violet-500 [animation-delay:0.3s]' />
+				<span className='h-1.5 w-1.5 animate-bounce rounded-none bg-editorial-ink [animation-delay:0s]' />
+				<span className='h-1.5 w-1.5 animate-bounce rounded-none bg-editorial-ink [animation-delay:0.15s]' />
+				<span className='h-1.5 w-1.5 animate-bounce rounded-none bg-editorial-ink [animation-delay:0.3s]' />
 			</div>
 		</div>
 	</div>

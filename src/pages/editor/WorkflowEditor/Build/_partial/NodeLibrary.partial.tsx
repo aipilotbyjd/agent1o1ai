@@ -85,19 +85,19 @@ const NodeLibrary = () => {
 	if (!leftPanelOpen) return null;
 
 	return (
-		<aside className='flex h-full w-80 shrink-0 flex-col border-r border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950'>
+		<aside className='flex h-full w-80 shrink-0 flex-col border-r-2 border-editorial-ink bg-white'>
 			{/* Header */}
-			<div className='border-b border-zinc-200 px-3 pb-3 pt-3 dark:border-zinc-800'>
+			<div className='border-b-2 border-editorial-ink px-3 pb-3 pt-3'>
 				<div className='mb-2.5 flex items-center justify-between'>
 					<div className='flex items-center gap-2'>
-						<span className='flex h-6 w-6 items-center justify-center rounded-md bg-zinc-900/5 text-zinc-700 dark:bg-white/10 dark:text-zinc-200'>
+						<span className='flex h-6 w-6 items-center justify-center rounded-none border-2 border-editorial-ink bg-white text-zinc-700'>
 							<Icon icon='Cube' className='text-sm' />
 						</span>
 						<div className='flex flex-col leading-tight'>
-							<span className='text-[13px] font-semibold text-zinc-900 dark:text-zinc-100'>
+							<span className='font-serif font-black italic text-[13px] text-editorial-ink'>
 								Nodes
 							</span>
-							<span className='text-[10px] text-zinc-500'>
+							<span className='font-mono text-[10px] tracking-tighter text-editorial-ink/60'>
 								{NODE_CATALOG.length} available
 							</span>
 						</div>
@@ -114,7 +114,7 @@ const NodeLibrary = () => {
 
 				{/* Search */}
 				<div className='relative'>
-					<span className='pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400'>
+					<span className='pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-editorial-ink/40'>
 						<Icon icon='Search01' className='text-sm' />
 					</span>
 					<input
@@ -122,7 +122,7 @@ const NodeLibrary = () => {
 						value={q}
 						onChange={(e) => setQ(e.target.value)}
 						placeholder='Search nodes…'
-						className='w-full rounded-lg border border-zinc-200 bg-zinc-50 py-2 pl-9 pr-16 text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-300 focus:bg-white focus:ring-2 focus:ring-zinc-900/5 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-zinc-700 dark:focus:ring-white/10'
+						className='w-full rounded-none border-2 border-editorial-ink bg-editorial-bg py-2 pl-9 pr-16 text-sm text-editorial-ink outline-none transition placeholder:text-editorial-ink/40 focus:ring-2 focus:ring-editorial-ink/20'
 					/>
 					{q ? (
 						<button
@@ -130,11 +130,11 @@ const NodeLibrary = () => {
 							onClick={clearSearch}
 							title='Clear search'
 							aria-label='Clear search'
-							className='absolute right-2 top-1/2 -translate-y-1/2 inline-flex h-6 w-6 items-center justify-center rounded-md text-zinc-400 hover:bg-zinc-900/5 hover:text-zinc-900 dark:hover:bg-white/10 dark:hover:text-white'>
+							className='absolute right-2 top-1/2 -translate-y-1/2 inline-flex h-6 w-6 items-center justify-center rounded-none border border-editorial-ink text-editorial-ink/60 hover:bg-editorial-bg'>
 							<Icon icon='Cancel01' className='text-xs' />
 						</button>
 					) : (
-						<kbd className='pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-zinc-200 bg-white px-1.5 py-0.5 text-[10px] font-medium text-zinc-400 dark:border-zinc-700 dark:bg-zinc-800'>
+						<kbd className='pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded-none border border-editorial-ink bg-white px-1.5 py-0.5 font-mono text-[10px] font-medium text-editorial-ink/60'>
 							/
 						</kbd>
 					)}
@@ -146,10 +146,10 @@ const NodeLibrary = () => {
 						type='button'
 						onClick={() => setActiveCat('all')}
 						className={[
-							'inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium transition',
+							'inline-flex shrink-0 items-center gap-1.5 rounded-none border-2 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest transition',
 							activeCat === 'all'
-								? 'border-zinc-900 bg-zinc-900 text-white dark:border-white dark:bg-white dark:text-zinc-900'
-								: 'border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700',
+								? 'border-editorial-ink bg-editorial-ink text-white'
+								: 'border-editorial-ink/30 bg-white text-editorial-ink/70 hover:border-editorial-ink hover:bg-editorial-bg',
 						].join(' ')}>
 						All
 						<span className='tabular-nums opacity-70'>{NODE_CATALOG.length}</span>
@@ -163,13 +163,13 @@ const NodeLibrary = () => {
 								type='button'
 								onClick={() => setActiveCat(cat)}
 								className={[
-									'inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-medium transition',
+									'inline-flex shrink-0 items-center gap-1.5 rounded-none border-2 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest transition',
 									active
-										? 'border-zinc-900 bg-zinc-900 text-white dark:border-white dark:bg-white dark:text-zinc-900'
-										: 'border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700',
+										? 'border-editorial-ink bg-editorial-ink text-white'
+										: 'border-editorial-ink/30 bg-white text-editorial-ink/70 hover:border-editorial-ink hover:bg-editorial-bg',
 								].join(' ')}>
 								<span
-									className={`h-1.5 w-1.5 rounded-full ${CATEGORY_DOT[meta.hue] ?? 'bg-zinc-400'}`}
+									className={`h-1.5 w-1.5 rounded-none ${CATEGORY_DOT[meta.hue] ?? 'bg-zinc-400'}`}
 								/>
 								{meta.label}
 								<span className='tabular-nums opacity-70'>{count}</span>
@@ -221,18 +221,18 @@ const NodeLibrary = () => {
 														y: 120 + Math.random() * 200,
 													})
 												}
-												className='group relative flex w-full cursor-grab items-center gap-2.5 rounded-lg border border-transparent bg-transparent px-2 py-2 text-left transition hover:border-zinc-200 hover:bg-white hover:shadow-sm active:cursor-grabbing dark:hover:border-zinc-800 dark:hover:bg-zinc-900'>
+												className='group relative flex w-full cursor-grab items-center gap-2.5 rounded-none border-2 border-transparent bg-transparent px-2 py-2 text-left transition hover:border-editorial-ink hover:bg-editorial-bg hover:shadow-editorial-soft active:cursor-grabbing'>
 												<span
-													className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-base leading-none ${hue.border} ${hue.bg}`}>
+													className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-none border-2 border-editorial-ink text-base leading-none ${hue.bg}`}>
 													{n.icon}
 												</span>
 												<div className='min-w-0 flex-1'>
 													<div className='flex items-center gap-1.5'>
-														<span className='truncate text-[13px] font-medium text-zinc-900 dark:text-zinc-100'>
+														<span className='truncate font-serif font-black italic text-[13px] text-editorial-ink'>
 															{n.label}
 														</span>
 													</div>
-													<div className='line-clamp-1 text-[11px] text-zinc-500'>
+													<div className='line-clamp-1 font-mono text-[10px] tracking-tighter text-editorial-ink/60'>
 														{n.description}
 													</div>
 												</div>

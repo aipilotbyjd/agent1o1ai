@@ -268,27 +268,30 @@ const CanvasInner = () => {
 				snapToGrid
 				snapGrid={[8, 8]}
 				proOptions={{ hideAttribution: true }}
-				className='bg-zinc-50 dark:bg-zinc-950'>
-				<Background
-					variant={BackgroundVariant.Dots}
-					gap={20}
-					size={1.2}
-					className='!text-zinc-300 dark:!text-zinc-800'
+				className='bg-editorial-bg'>
+				<div
+					className='absolute inset-0 pointer-events-none'
+					style={{
+						backgroundImage: 'radial-gradient(#1A1A1A 0.5px, transparent 0.5px)',
+						backgroundSize: '32px 32px',
+						opacity: 0.08,
+					}}
+					aria-hidden='true'
 				/>
 				<MiniMap
 					pannable
 					zoomable
-					maskColor='rgba(24, 24, 27, 0.04)'
-					className='!rounded-xl !border !border-zinc-200 !bg-white/80 !shadow-sm !backdrop-blur-md dark:!border-zinc-800 dark:!bg-zinc-900/80'
+					maskColor='rgba(245, 242, 237, 0.6)'
+					className='!rounded-none !border-2 !border-editorial-ink !bg-white !shadow-editorial-soft'
 					nodeColor={(n) => {
 						const def = NODE_CATALOG_MAP[(n.data as { defKey?: string })?.defKey ?? ''];
 						return HUE_TO_HEX[def?.color ?? 'zinc'] ?? HUE_TO_HEX.zinc;
 					}}
 					nodeStrokeColor='transparent'
-					nodeBorderRadius={6}
+					nodeBorderRadius={0}
 				/>
 				<Controls
-					className='!overflow-hidden !rounded-xl !border !border-zinc-200 !bg-white/90 !shadow-sm !backdrop-blur-md [&_button]:!border-b [&_button]:!border-zinc-200 [&_button]:!bg-transparent [&_button]:!text-zinc-600 [&_button:hover]:!bg-zinc-100 dark:!border-zinc-800 dark:!bg-zinc-900/90 dark:[&_button]:!border-zinc-800 dark:[&_button]:!text-zinc-300 dark:[&_button:hover]:!bg-zinc-800'
+					className='!overflow-hidden !rounded-none !border-2 !border-editorial-ink !bg-white !shadow-editorial-button [&_button]:!border-b [&_button]:!border-editorial-ink [&_button]:!bg-transparent [&_button]:!text-editorial-ink [&_button:hover]:!bg-editorial-bg'
 					showInteractive={false}
 				/>
 			</ReactFlow>
@@ -296,10 +299,10 @@ const CanvasInner = () => {
 			{/* Drop-target highlight */}
 			{isDragging && (
 				<div
-					className='pointer-events-none absolute inset-3 rounded-2xl border-2 border-dashed border-violet-400/60 bg-violet-500/5 transition-opacity'
+					className='pointer-events-none absolute inset-3 rounded-none border-2 border-dashed border-editorial-ink/40 bg-editorial-ink/5 transition-opacity'
 					aria-hidden='true'>
 					<div className='flex h-full items-center justify-center'>
-						<div className='rounded-full bg-violet-500/10 px-4 py-2 text-xs font-semibold text-violet-600 shadow-sm ring-1 ring-violet-500/30 backdrop-blur dark:text-violet-300'>
+						<div className='rounded-none bg-editorial-ink/10 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-editorial-ink'>
 							Drop to add node
 						</div>
 					</div>
@@ -311,15 +314,15 @@ const CanvasInner = () => {
 				<div className='pointer-events-none absolute inset-0 flex items-center justify-center p-6'>
 					<div className='pointer-events-auto w-full max-w-2xl'>
 						<div className='mb-6 text-center'>
-							<div className='mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-xl text-white shadow-lg shadow-violet-500/30'>
+							<div className='mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-none border-2 border-editorial-ink bg-editorial-ink text-xl text-white shadow-editorial-button'>
 								✨
 							</div>
-							<div className='text-lg font-semibold text-zinc-900 dark:text-zinc-100'>
+							<div className='font-serif font-black italic text-xl text-editorial-ink'>
 								Start building your workflow
 							</div>
-							<div className='mt-1 text-sm text-zinc-500'>
+							<div className='mt-1 font-mono text-[10px] tracking-tighter text-editorial-ink/60'>
 								Pick a template, drag from the library, or press{' '}
-								<kbd className='rounded border border-zinc-300 bg-zinc-100 px-1.5 py-0.5 font-mono text-[11px] dark:border-zinc-700 dark:bg-zinc-800'>
+								<kbd className='rounded-none border border-editorial-ink bg-white px-1.5 py-0.5 font-mono text-[10px]'>
 									⌘K
 								</kbd>{' '}
 								to generate one with AI.
@@ -331,14 +334,14 @@ const CanvasInner = () => {
 									key={tpl.label}
 									type='button'
 									onClick={() => applyTemplate(tpl)}
-									className='group rounded-xl border border-zinc-200 bg-white/80 p-4 text-left shadow-sm backdrop-blur transition hover:border-violet-300 hover:shadow-md dark:border-zinc-800 dark:bg-zinc-900/80 dark:hover:border-violet-500/40'>
+									className='group rounded-none border-2 border-editorial-ink bg-white p-4 text-left shadow-editorial-soft transition hover:shadow-editorial'>
 									<div className='mb-2 flex items-center gap-2'>
 										<span className='text-lg'>{tpl.icon}</span>
-										<span className='text-sm font-semibold text-zinc-900 dark:text-zinc-100'>
+										<span className='font-serif font-black italic text-sm text-editorial-ink'>
 											{tpl.label}
 										</span>
 									</div>
-									<div className='mb-3 text-xs text-zinc-500'>{tpl.description}</div>
+									<div className='mb-3 font-mono text-[10px] tracking-tighter text-editorial-ink/60'>{tpl.description}</div>
 									<div className='flex items-center gap-1'>
 										{tpl.nodes.map((k, i) => {
 											const def = NODE_CATALOG_MAP[k];
@@ -348,7 +351,7 @@ const CanvasInner = () => {
 													className='inline-flex items-center gap-1'>
 													<span className='text-sm'>{def?.icon ?? '•'}</span>
 													{i < tpl.nodes.length - 1 && (
-														<span className='text-zinc-300 dark:text-zinc-600'>
+														<span className='text-editorial-ink/30'>
 															→
 														</span>
 													)}
@@ -381,9 +384,9 @@ const CanvasInner = () => {
 };
 
 const StatChip = ({ label, value }: { label: string; value: number }) => (
-	<div className='pointer-events-auto inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white/80 px-2.5 py-1 text-[10px] font-medium text-zinc-600 shadow-sm backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/80 dark:text-zinc-300'>
-		<span className='text-zinc-400'>{label}</span>
-		<span className='tabular-nums text-zinc-900 dark:text-zinc-100'>{value}</span>
+	<div className='pointer-events-auto inline-flex items-center gap-1.5 rounded-none border-2 border-editorial-ink bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-editorial-ink shadow-editorial-soft'>
+		<span className='font-mono tracking-tighter'>{label}</span>
+		<span className='font-mono tabular-nums'>{value}</span>
 	</div>
 );
 

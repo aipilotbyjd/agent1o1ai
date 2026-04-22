@@ -15,15 +15,15 @@ type TDockBtn = {
 const DockButton = ({ icon, label, onClick, active, tone = 'default' }: TDockBtn) => {
 	const toneClass =
 		tone === 'primary'
-			? 'bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-md shadow-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/50'
+			? 'bg-emerald-500 text-white shadow-editorial-button border-2 border-emerald-500'
 			: tone === 'danger'
-				? 'bg-red-500 text-white shadow-md shadow-red-500/40 hover:bg-red-600'
+				? 'bg-red-500 text-white shadow-editorial-button border-2 border-red-500'
 				: active
-					? 'bg-zinc-900/10 text-zinc-900 dark:bg-white/15 dark:text-white'
-					: 'text-zinc-600 hover:bg-zinc-900/5 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-white/10 dark:hover:text-white';
+					? 'bg-editorial-ink text-white border-2 border-editorial-ink'
+					: 'text-editorial-ink/60 hover:bg-editorial-bg hover:text-editorial-ink border-2 border-transparent';
 
 	const size =
-		tone === 'primary' || tone === 'danger' ? 'h-10 w-10 rounded-xl' : 'h-9 w-9 rounded-lg';
+		tone === 'primary' || tone === 'danger' ? 'h-10 w-10 rounded-none' : 'h-9 w-9 rounded-none';
 
 	return (
 		<button
@@ -36,7 +36,7 @@ const DockButton = ({ icon, label, onClick, active, tone = 'default' }: TDockBtn
 				icon={icon}
 				className={`${tone === 'primary' || tone === 'danger' ? 'text-lg' : 'text-base'}`}
 			/>
-			<span className='pointer-events-none absolute -top-9 whitespace-nowrap rounded-md bg-zinc-900 px-2 py-1 text-[10px] font-medium text-white opacity-0 shadow-lg transition group-hover:opacity-100 dark:bg-zinc-100 dark:text-zinc-900'>
+			<span className='pointer-events-none absolute -top-9 whitespace-nowrap rounded-none bg-editorial-ink px-2 py-1 text-[10px] font-black uppercase tracking-widest text-white opacity-0 shadow-editorial-soft transition group-hover:opacity-100'>
 				{label}
 			</span>
 		</button>
@@ -44,7 +44,7 @@ const DockButton = ({ icon, label, onClick, active, tone = 'default' }: TDockBtn
 };
 
 const Divider = () => (
-	<div className='mx-1 h-6 w-px bg-zinc-200 dark:bg-zinc-700' aria-hidden='true' />
+	<div className='mx-1 h-6 w-px bg-editorial-ink/20' aria-hidden='true' />
 );
 
 const BottomDock = () => {
@@ -70,7 +70,7 @@ const BottomDock = () => {
 	return (
 		<>
 			<div className='pointer-events-none absolute inset-x-0 bottom-4 z-10 flex justify-center'>
-				<div className='pointer-events-auto flex items-center gap-1 rounded-2xl border border-zinc-200 bg-white/80 p-1.5 shadow-xl ring-1 ring-black/5 backdrop-blur-md dark:border-zinc-800 dark:bg-zinc-950/80'>
+				<div className='pointer-events-auto flex items-center gap-1 rounded-none border-2 border-editorial-ink bg-white p-1.5 shadow-editorial'>
 					<DockButton icon='Command' label='Command palette (⌘P)' onClick={togglePalette} />
 					<DockButton icon='PlusSign' label='Add node' onClick={openAdd} />
 					<DockButton

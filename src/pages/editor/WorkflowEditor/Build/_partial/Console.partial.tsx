@@ -90,9 +90,9 @@ const Console = () => {
 	};
 
 	return (
-		<div className='flex h-64 shrink-0 flex-col border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950'>
+		<div className='flex h-64 shrink-0 flex-col border-t-2 border-editorial-ink bg-white'>
 			{/* Header */}
-			<div className='flex h-10 shrink-0 items-center gap-2 border-b border-zinc-200 px-3 dark:border-zinc-800'>
+			<div className='flex h-10 shrink-0 items-center gap-2 border-b-2 border-editorial-ink px-3'>
 				<div className='flex items-center gap-2'>
 					<span className='flex h-6 w-6 items-center justify-center rounded-md bg-zinc-900/5 text-zinc-700 dark:bg-white/10 dark:text-zinc-200'>
 						<Icon icon='Console' className='text-sm' />
