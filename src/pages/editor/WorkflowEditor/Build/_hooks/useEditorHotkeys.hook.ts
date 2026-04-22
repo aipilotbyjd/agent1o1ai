@@ -9,6 +9,8 @@ export const useEditorHotkeys = () => {
 	const layout = useEditor((s) => s.runAutoLayout);
 	const run = useEditor((s) => s.runWorkflow);
 	const toggleAi = useEditor((s) => s.toggleAiPanel);
+	const togglePalette = useEditor((s) => s.toggleCommandPalette);
+	const requestFitView = useEditor((s) => s.requestFitView);
 
 	useHotkeys('mod+z', (e) => { e.preventDefault(); undo(); }, { enableOnFormTags: false });
 	useHotkeys('mod+shift+z,mod+y', (e) => { e.preventDefault(); redo(); }, { enableOnFormTags: false });
@@ -22,4 +24,6 @@ export const useEditorHotkeys = () => {
 	useHotkeys('l', () => layout(), { enableOnFormTags: false });
 	useHotkeys('mod+enter', (e) => { e.preventDefault(); run(); });
 	useHotkeys('mod+k', (e) => { e.preventDefault(); toggleAi(); }, { enableOnFormTags: true });
+	useHotkeys('mod+p,mod+slash', (e) => { e.preventDefault(); togglePalette(); }, { enableOnFormTags: true });
+	useHotkeys('f', () => requestFitView(), { enableOnFormTags: false });
 };

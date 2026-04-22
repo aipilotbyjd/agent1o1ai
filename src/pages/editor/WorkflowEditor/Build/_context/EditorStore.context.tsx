@@ -47,6 +47,7 @@ export type TEditorState = {
 	consoleOpen: boolean;
 	consoleHeight: number;
 	aiPanelOpen: boolean;
+	commandPaletteOpen: boolean;
 
 	// run
 	run: TRunState;
@@ -85,6 +86,11 @@ export type TEditorState = {
 	setConsoleHeight: (h: number) => void;
 	toggleAiPanel: () => void;
 	setAiPanelOpen: (open: boolean) => void;
+	toggleCommandPalette: () => void;
+	setCommandPaletteOpen: (open: boolean) => void;
+	insertNodeOnEdge: (edgeId: string, defKey: string, position: XYPosition) => string | null;
+	fitViewRequest: number;
+	requestFitView: () => void;
 
 	loadSnapshot: (snap: TSnapshot) => void;
 	exportJson: () => string;
@@ -123,6 +129,8 @@ export const createEditorStore = () =>
 		consoleOpen: false,
 		consoleHeight: 240,
 		aiPanelOpen: false,
+		commandPaletteOpen: false,
+		fitViewRequest: 0,
 		run: initialRun,
 		meta: initialMeta,
 
@@ -395,6 +403,50 @@ export const createEditorStore = () =>
 		setConsoleHeight: (h) => set({ consoleHeight: h }),
 		toggleAiPanel: () => set((s) => ({ aiPanelOpen: !s.aiPanelOpen })),
 		setAiPanelOpen: (open) => set({ aiPanelOpen: open }),
+		toggleCommandPalette: () => set((s) => ({ commandPaletteOpen: !s.commandPaletteOpen })),
+		setCommandPaletteOpen: (open) => set({ commandPaletteOpen: open }),
+		requestFitView: () => set((s) => ({ fitViewRequest: s.fitViewRequest + 1 })),
+
+		insertNodeOnEdge: (edgeId, defKey, position) => {
+			const s = get();
+			const edge = s.edges.find((e) => e.id === edgeId);
+			if (!edge) return s.addNodeFromCatalog(defKey, position);
+			const def = NODE_CATALOG_MAP[defKey];
+			if (!def) return null;
+			s.pushHistory();
+			const newId = s.addNodeFromCatalog(defKey, position);
+			if (!newId) return null;
+			const firstIn = def.inputs[0]?.id;
+			const firstOut = def.outputs[0]?.id;
+			set((st) => {
+				const withoutOld = st.edges.filter((e) => e.id !== edgeId);
+				const a: Edge | null = firstIn
+					? {
+							id: nanoid(8),
+							source: edge.source,
+							target: newId,
+							sourceHandle: edge.sourceHandle ?? undefined,
+							targetHandle: firstIn,
+							type: 'addable',
+						}
+					: null;
+				const b: Edge | null = firstOut
+					? {
+							id: nanoid(8),
+							source: newId,
+							target: edge.target,
+							sourceHandle: firstOut,
+							targetHandle: edge.targetHandle ?? undefined,
+							type: 'addable',
+						}
+					: null;
+				return {
+					edges: [...withoutOld, ...(a ? [a] : []), ...(b ? [b] : [])],
+					meta: { ...st.meta, savingState: 'dirty' },
+				};
+			});
+			return newId;
+		},
 
 		loadSnapshot: (snap) =>
 			set({ nodes: snap.nodes, edges: snap.edges, past: [], future: [] }),

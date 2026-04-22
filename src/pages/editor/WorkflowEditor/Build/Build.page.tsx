@@ -5,6 +5,8 @@ import Inspector from './_partial/Inspector.partial';
 import Topbar from './_partial/Topbar.partial';
 import Console from './_partial/Console.partial';
 import AiAssistant from './_partial/AiAssistant.partial';
+import CommandPalette from './_partial/CommandPalette.partial';
+import BottomDock from './_partial/BottomDock.partial';
 import { useEditorHotkeys } from './_hooks/useEditorHotkeys.hook';
 import { useAutosave } from './_hooks/useAutosave.hook';
 import { useEditor, useEditorApi } from './_context/EditorStore.context';
@@ -13,8 +15,10 @@ import { NODE_CATALOG_MAP } from './_helper/nodeCatalog.constants';
 /**
  * Hydrates a demo workflow if the store is empty.
  * Replace with server hydration (`useWorkflow(id)`) when the API is ready.
+ * Currently unused so the empty-state template grid is visible on first load;
+ * invoke inside `BuildPage` to restore the demo graph.
  */
-const useDemoSeed = () => {
+export const useDemoSeed = () => {
 	const api = useEditorApi();
 	const nodesLen = useEditor((s) => s.nodes.length);
 
@@ -48,7 +52,9 @@ const useDemoSeed = () => {
 const BuildPage = () => {
 	useEditorHotkeys();
 	useAutosave();
-	useDemoSeed();
+	// Note: useDemoSeed() intentionally not called so the empty-state template grid
+	// is the first thing the user sees. Uncomment to auto-hydrate a demo graph.
+	// useDemoSeed();
 
 	return (
 		<div className='flex h-full min-h-0 flex-1 flex-col'>
@@ -56,14 +62,16 @@ const BuildPage = () => {
 			<div className='flex min-h-0 flex-1'>
 				<NodeLibrary />
 				<div className='flex min-w-0 flex-1 flex-col'>
-					<div className='min-h-0 flex-1'>
+					<div className='relative min-h-0 flex-1'>
 						<Canvas />
+						<BottomDock />
 					</div>
 					<Console />
 				</div>
 				<Inspector />
 			</div>
 			<AiAssistant />
+			<CommandPalette />
 		</div>
 	);
 };
