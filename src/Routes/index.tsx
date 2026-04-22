@@ -13,7 +13,10 @@ import UnderConstructionPage from '@/pages/UnderConstruction.page';
 import DocumentationPages from '@/Routes/infoPages/documentationPages';
 import ExamplePages from '@/Routes/infoPages/examplePages';
 import RegisterPage from '@/pages/Register.page';
+import AppLayout from '@/layouts/App.layout';
+import AppRoutes from '@/Routes/agent1o1Pages/appRoutes';
 import EditorRoutes from '@/Routes/agent1o1Pages/editorRoutes';
+import EditorLayout from '@/layouts/Editor.layout';
 
 // Lazily loaded components for routes
 const SalesLayout = lazy(() => import('@/pages/apps/sales/_layouts/Sales.layout'));
@@ -89,8 +92,6 @@ const router = createBrowserRouter([
 					{
 						element: <Protected role='admin' />,
 						children: [
-							// Full-screen editor (no DefaultLayout chrome)
-							...EditorRoutes,
 							{
 								element: <DefaultLayout />,
 								children: [
@@ -236,6 +237,24 @@ const router = createBrowserRouter([
 										],
 									},
 								],
+							},
+						],
+					},
+					{
+						element: <Protected role='admin' />,
+						children: [
+							{
+								element: <AppLayout />,
+								children: [...AppRoutes],
+							},
+						],
+					},
+					{
+						element: <Protected role='admin' />,
+						children: [
+							{
+								element: <EditorLayout />,
+								children: [...EditorRoutes],
 							},
 						],
 					},
