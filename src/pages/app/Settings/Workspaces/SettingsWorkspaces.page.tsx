@@ -18,7 +18,7 @@ import {
 	useCreateWorkspace,
 	useDeleteWorkspace,
 } from '@/api';
-import { ROLE_COLORS } from '../Teams/_helper/helper';
+import { ROLE_COLORS } from '../Teams/_helper/teams.helper';
 import type { TWorkspace, TWorkspaceRole } from '@/types/workspace.type';
 
 const createSchema = Yup.object({

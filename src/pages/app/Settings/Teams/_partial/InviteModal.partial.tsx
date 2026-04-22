@@ -7,7 +7,7 @@ import Input from '@/components/form/Input';
 import Label from '@/components/form/Label';
 import Icon from '@/components/icon/Icon';
 import { useSendInvitation } from '@/api';
-import { ASSIGNABLE_ROLES } from '../_helper/helper';
+import { ASSIGNABLE_ROLES } from '../_helper/teams.helper';
 import type { TWorkspaceRole } from '@/types/workspace.type';
 
 interface IInviteModalProps {

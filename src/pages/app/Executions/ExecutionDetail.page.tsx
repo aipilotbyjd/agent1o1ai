@@ -14,7 +14,7 @@ import {
 } from '@/api';
 import { useCurrentWorkspaceId } from '@/context/workspaceContext';
 import { TExecutionLog, TExecutionNode, TExecutionStatus } from '@/types/execution.type';
-import { STATUS_COLORS, formatDuration } from './_helper/helper';
+import { STATUS_COLORS, formatDuration } from './_helper/executions.helper';
 
 export interface OutletContextType {
 	headerLeft?: React.ReactNode;

@@ -15,7 +15,7 @@ import {
 	SKILL_META,
 	TRIGGER_OPTIONS,
 	type TBuilderSection,
-} from './Builder.constants';
+} from '../_helper/Builder.constants';
 import type { TAgentSkill } from '@/types/agent.type';
 
 type BuilderFormPartialProps = {

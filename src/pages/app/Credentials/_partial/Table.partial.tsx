@@ -15,7 +15,7 @@ import Dropdown, { DropdownMenu, DropdownItem, DropdownToggle } from '@/componen
 import TableTemplate, { TableCardFooterTemplate } from '@/templates/common/TableParts.template';
 import Icon from '@/components/icon/Icon';
 import { ICredential, TCredentialType, TSharingScope } from '@/types/credential.type';
-import { TYPE_COLORS, SHARING_SCOPE_CONFIG } from '../_helper/helper';
+import { TYPE_COLORS, SHARING_SCOPE_CONFIG } from '../_helper/credentials.helper';
 
 const columnHelper = createColumnHelper<ICredential>();
 

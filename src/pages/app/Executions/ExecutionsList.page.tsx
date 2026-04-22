@@ -14,7 +14,7 @@ import { SortingState } from '@tanstack/react-table';
 
 import { useExecutions, useCancelExecution, useRetryExecution } from '@/api';
 import { TExecution, TExecutionStatus, TExecutionTrigger } from '@/types/execution.type';
-import { TExecutionSortBy, TSortOrder } from './_helper/helper';
+import { TExecutionSortBy, TSortOrder } from './_helper/executions.helper';
 import { toast } from 'react-toastify';
 import { useCurrentWorkspaceId } from '@/context/workspaceContext';
 

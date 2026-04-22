@@ -13,7 +13,7 @@ import Dropdown, {
 } from '@/components/ui/Dropdown';
 import colors from '@/tailwindcss/colors.tailwind';
 import { TWorkflowStatus, TWorkflowSortBy, TSortOrder } from '@/types/workflow.type';
-import { STATUS_OPTIONS, SORT_OPTIONS, TAG_OPTIONS } from '../_helper/helper';
+import { STATUS_OPTIONS, SORT_OPTIONS, TAG_OPTIONS } from '../_helper/workflows.helper';
 
 interface IFiltersPartialProps {
 	statusFilter: TWorkflowStatus | '';

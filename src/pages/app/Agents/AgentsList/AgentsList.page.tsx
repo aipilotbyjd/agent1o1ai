@@ -1,6 +1,6 @@
 import Container from '@/components/layout/Container';
 import { useNavigate, useOutletContext } from 'react-router';
-import { OutletContextType } from './_layouts/Agents.layout';
+import { OutletContextType } from '../_layouts/Agents.layout';
 import { useEffect, useState, useMemo } from 'react';
 import Breadcrumb from '@/components/layout/Breadcrumb';
 import pages from '@/Routes/pages';

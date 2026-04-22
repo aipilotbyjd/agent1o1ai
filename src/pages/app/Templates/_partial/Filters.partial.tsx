@@ -8,7 +8,7 @@ import Dropdown, {
 	DropdownDivider,
 } from '@/components/ui/Dropdown';
 import { TTemplateCategory, TTemplateSortBy, TSortOrder } from '@/types/template.type';
-import { CATEGORY_OPTIONS, SORT_OPTIONS } from '../_helper/helper';
+import { CATEGORY_OPTIONS, SORT_OPTIONS } from '../_helper/templates.helper';
 
 interface IFiltersPartialProps {
 	categoryFilter: TTemplateCategory | '';

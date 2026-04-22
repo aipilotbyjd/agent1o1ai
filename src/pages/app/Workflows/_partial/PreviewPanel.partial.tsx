@@ -4,7 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import { IWorkflow } from '@/types/workflow.type';
-import { STATUS_COLORS } from '../_helper/helper';
+import { STATUS_COLORS } from '../_helper/workflows.helper';
 import type { TColors } from '@/types/colors.type';
 
 dayjs.extend(relativeTime);

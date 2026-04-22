@@ -16,7 +16,7 @@ import Icon from '@/components/icon/Icon';
 import Dropdown, { DropdownMenu, DropdownItem, DropdownToggle } from '@/components/ui/Dropdown';
 import TableTemplate, { TableCardFooterTemplate } from '@/templates/common/TableParts.template';
 import { TExecution, TExecutionStatus, TExecutionTrigger } from '@/types/execution.type';
-import { STATUS_COLORS, formatDuration } from '../_helper/helper';
+import { STATUS_COLORS, formatDuration } from '../_helper/executions.helper';
 
 const columnHelper = createColumnHelper<TExecution>();
 

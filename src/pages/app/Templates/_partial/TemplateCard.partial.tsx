@@ -3,7 +3,7 @@ import Card, { CardBody } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Icon from '@/components/icon/Icon';
 import { ITemplate } from '@/types/template.type';
-import { getCategoryColor, getCategoryIcon } from '../_helper/helper';
+import { getCategoryColor, getCategoryIcon } from '../_helper/templates.helper';
 
 interface ITemplateCardPartialProps {
 	template: ITemplate;

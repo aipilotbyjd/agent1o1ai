@@ -31,7 +31,7 @@ import {
 	DEFAULT_SYSTEM_PROMPT,
 	DEFAULT_TOOL_IDS,
 	type TBuilderSection,
-} from './_partial/Builder.constants';
+} from './_helper/Builder.constants';
 import { BuilderChatPartial } from './_partial/BuilderChat.partial';
 import { BuilderFormPartial } from './_partial/BuilderForm.partial';
 

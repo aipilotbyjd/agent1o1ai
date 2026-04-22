@@ -8,7 +8,7 @@ import Dropdown, {
 	DropdownDivider,
 } from '@/components/ui/Dropdown';
 import { TExecutionStatus, TExecutionTrigger } from '@/types/execution.type';
-import { TExecutionSortBy, TSortOrder, STATUS_OPTIONS, TRIGGER_OPTIONS, SORT_OPTIONS } from '../_helper/helper';
+import { TExecutionSortBy, TSortOrder, STATUS_OPTIONS, TRIGGER_OPTIONS, SORT_OPTIONS } from '../_helper/executions.helper';
 
 interface IFiltersPartialProps {
 	statusFilter: TExecutionStatus | '';

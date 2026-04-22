@@ -8,7 +8,7 @@ import ChatBubbles, {
 	ChatBubblesSeparate,
 } from '@/components/ui/ChatBubbles';
 import Textarea from '@/components/form/Textarea';
-import { TOOL_OPTIONS } from './Builder.constants';
+import { TOOL_OPTIONS } from '../_helper/Builder.constants';
 
 type BuilderChatProps = {
 	avatarAgent: string;

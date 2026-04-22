@@ -8,7 +8,7 @@ import Dropdown, {
 	DropdownDivider,
 } from '@/components/ui/Dropdown';
 import { TVariableSortBy, TSortOrder } from '@/types/variable.type';
-import { SORT_OPTIONS } from '../_helper/helper';
+import { SORT_OPTIONS } from '../_helper/variables.helper';
 
 const SCOPE_OPTIONS = [
 	{ value: null, label: 'All Scopes', icon: 'LayersTwo01' },

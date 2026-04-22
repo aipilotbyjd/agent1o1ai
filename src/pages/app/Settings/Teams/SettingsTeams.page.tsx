@@ -19,7 +19,7 @@ import {
 	useFetchInvitations,
 	useCancelInvitation,
 } from '@/api';
-import { canManageMembers, ROLE_OPTIONS } from './_helper/helper';
+import { canManageMembers, ROLE_OPTIONS } from './_helper/teams.helper';
 import MembersTable from './_partial/MembersTable.partial';
 import InvitationsTable from './_partial/InvitationsTable.partial';
 import InviteModal from './_partial/InviteModal.partial';

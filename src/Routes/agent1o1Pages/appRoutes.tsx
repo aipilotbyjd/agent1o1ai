@@ -9,8 +9,8 @@ const WorkflowsLayout = lazy(() => import('@/pages/app/Workflows/_layouts/Workfl
 const WorkflowsListPage = lazy(() => import('@/pages/app/Workflows/WorkflowsList.page'));
 
 const AgentsLayout = lazy(() => import('@/pages/app/Agents/_layouts/Agents.layout'));
-const AgentsListPage = lazy(() => import('@/pages/app/Agents/AgentsList.page'));
-const AgentBuilderPage = lazy(() => import('@/pages/app/Agents/AgentBuilder.page'));
+const AgentsListPage = lazy(() => import('@/pages/app/Agents/AgentsList/AgentsList.page'));
+const AgentBuilderPage = lazy(() => import('@/pages/app/Agents/AgentBuilder/AgentBuilder.page'));
 
 const SkillsLayout = lazy(() => import('@/pages/app/Skills/_layouts/Skills.layout'));
 const SkillsListPage = lazy(() => import('@/pages/app/Skills/SkillsList.page'));

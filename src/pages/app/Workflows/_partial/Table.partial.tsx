@@ -21,7 +21,7 @@ import Dropdown, {
 } from '@/components/ui/Dropdown';
 import { IWorkflow, TWorkflowStatus } from '@/types/workflow.type';
 import { IFolder } from '@/types/folder.type';
-import { STATUS_COLORS } from '../_helper/helper';
+import { STATUS_COLORS } from '../_helper/workflows.helper';
 import type { TViewMode } from './ViewToggle.partial';
 import type { TColors } from '@/types/colors.type';
 

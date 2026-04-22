@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button';
 import Icon from '@/components/icon/Icon';
 import Input from '@/components/form/Input';
 import { ITemplate } from '@/types/template.type';
-import { getCategoryColor, getCategoryIcon } from '../_helper/helper';
+import { getCategoryColor, getCategoryIcon } from '../_helper/templates.helper';
 
 interface ITemplateDetailModalPartialProps {
 	template: ITemplate | null;

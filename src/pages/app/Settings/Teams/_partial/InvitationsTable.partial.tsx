@@ -7,7 +7,7 @@ import {
 import Badge from '@/components/ui/Badge';
 import Icon from '@/components/icon/Icon';
 import Button from '@/components/ui/Button';
-import { ROLE_COLORS, ROLE_ICONS, canManageMembers } from '../_helper/helper';
+import { ROLE_COLORS, ROLE_ICONS, canManageMembers } from '../_helper/teams.helper';
 import type { TWorkspaceInvitation, TWorkspaceRole } from '@/types/workspace.type';
 import TableTemplate from '@/templates/common/TableParts.template';
 

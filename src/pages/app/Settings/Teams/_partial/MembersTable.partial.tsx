@@ -14,7 +14,7 @@ import Dropdown, {
 	DropdownToggle,
 } from '@/components/ui/Dropdown';
 import Button from '@/components/ui/Button';
-import { ROLE_COLORS, ROLE_ICONS, ASSIGNABLE_ROLES, canChangeRole, canRemoveMember } from '../_helper/helper';
+import { ROLE_COLORS, ROLE_ICONS, ASSIGNABLE_ROLES, canChangeRole, canRemoveMember } from '../_helper/teams.helper';
 import type { TWorkspaceMember, TWorkspaceRole } from '@/types/workspace.type';
 import TableTemplate from '@/templates/common/TableParts.template';
 
