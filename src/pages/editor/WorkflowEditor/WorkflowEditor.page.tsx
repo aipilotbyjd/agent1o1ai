@@ -1,10 +1,10 @@
+import WorkflowEditorLayout from './_layouts/WorkflowEditorLayout.layout';
+import BuildPage from './Build/Build.page';
+
 const WorkflowEditorPage = () => (
-	<div className='flex h-screen items-center justify-center text-center'>
-		<div>
-			<h1 className='text-2xl font-bold'>Workflow Editor</h1>
-			<p className='mt-2 text-zinc-500'>Coming soon.</p>
-		</div>
-	</div>
+	<WorkflowEditorLayout>
+		<BuildPage />
+	</WorkflowEditorLayout>
 );
 
 export default WorkflowEditorPage;
