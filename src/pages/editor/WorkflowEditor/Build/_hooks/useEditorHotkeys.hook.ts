@@ -8,6 +8,7 @@ export const useEditorHotkeys = () => {
 	const del = useEditor((s) => s.deleteSelected);
 	const layout = useEditor((s) => s.runAutoLayout);
 	const run = useEditor((s) => s.runWorkflow);
+	const toggleAi = useEditor((s) => s.toggleAiPanel);
 
 	useHotkeys('mod+z', (e) => { e.preventDefault(); undo(); }, { enableOnFormTags: false });
 	useHotkeys('mod+shift+z,mod+y', (e) => { e.preventDefault(); redo(); }, { enableOnFormTags: false });
@@ -20,4 +21,5 @@ export const useEditorHotkeys = () => {
 	});
 	useHotkeys('l', () => layout(), { enableOnFormTags: false });
 	useHotkeys('mod+enter', (e) => { e.preventDefault(); run(); });
+	useHotkeys('mod+k', (e) => { e.preventDefault(); toggleAi(); }, { enableOnFormTags: true });
 };

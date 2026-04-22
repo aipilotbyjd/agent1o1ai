@@ -4,6 +4,7 @@ import NodeLibrary from './_partial/NodeLibrary.partial';
 import Inspector from './_partial/Inspector.partial';
 import Topbar from './_partial/Topbar.partial';
 import Console from './_partial/Console.partial';
+import AiAssistant from './_partial/AiAssistant.partial';
 import { useEditorHotkeys } from './_hooks/useEditorHotkeys.hook';
 import { useAutosave } from './_hooks/useAutosave.hook';
 import { useEditor, useEditorApi } from './_context/EditorStore.context';
@@ -62,6 +63,7 @@ const BuildPage = () => {
 				</div>
 				<Inspector />
 			</div>
+			<AiAssistant />
 		</div>
 	);
 };

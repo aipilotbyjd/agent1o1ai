@@ -46,6 +46,7 @@ export type TEditorState = {
 	rightPanelOpen: boolean;
 	consoleOpen: boolean;
 	consoleHeight: number;
+	aiPanelOpen: boolean;
 
 	// run
 	run: TRunState;
@@ -82,6 +83,8 @@ export type TEditorState = {
 	toggleRightPanel: () => void;
 	toggleConsole: () => void;
 	setConsoleHeight: (h: number) => void;
+	toggleAiPanel: () => void;
+	setAiPanelOpen: (open: boolean) => void;
 
 	loadSnapshot: (snap: TSnapshot) => void;
 	exportJson: () => string;
@@ -119,6 +122,7 @@ export const createEditorStore = () =>
 		rightPanelOpen: true,
 		consoleOpen: false,
 		consoleHeight: 240,
+		aiPanelOpen: false,
 		run: initialRun,
 		meta: initialMeta,
 
@@ -389,6 +393,8 @@ export const createEditorStore = () =>
 		toggleRightPanel: () => set((s) => ({ rightPanelOpen: !s.rightPanelOpen })),
 		toggleConsole: () => set((s) => ({ consoleOpen: !s.consoleOpen })),
 		setConsoleHeight: (h) => set({ consoleHeight: h }),
+		toggleAiPanel: () => set((s) => ({ aiPanelOpen: !s.aiPanelOpen })),
+		setAiPanelOpen: (open) => set({ aiPanelOpen: open }),
 
 		loadSnapshot: (snap) =>
 			set({ nodes: snap.nodes, edges: snap.edges, past: [], future: [] }),

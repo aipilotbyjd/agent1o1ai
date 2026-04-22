@@ -1,7 +1,10 @@
 import { Link } from 'react-router';
 import Icon from '@/components/icon/Icon';
 import { useEditor } from '../_context/EditorStore.context';
+import useDarkMode from '@/hooks/useDarkMode';
+import DARK_MODE from '@/constants/darkMode.constant';
 import type { TIcons } from '@/types/icons.type';
+import type { TDarkMode } from '@/types/darkMode.type';
 
 type TToolButtonProps = {
 	icon: TIcons;
@@ -78,6 +81,18 @@ const Topbar = () => {
 	const leftOpen = useEditor((s) => s.leftPanelOpen);
 	const rightOpen = useEditor((s) => s.rightPanelOpen);
 	const consoleOpen = useEditor((s) => s.consoleOpen);
+	const toggleAiPanel = useEditor((s) => s.toggleAiPanel);
+	const aiOpen = useEditor((s) => s.aiPanelOpen);
+
+	const { darkModeStatus, setDarkModeStatus } = useDarkMode();
+	const themeMeta: Record<TDarkMode, { icon: TIcons; label: string; next: TDarkMode }> = {
+		system: { icon: 'Computer', label: 'Theme: System', next: 'light' },
+		light: { icon: 'Sun03', label: 'Theme: Light', next: 'dark' },
+		dark: { icon: 'Moon02', label: 'Theme: Dark', next: 'system' },
+	};
+	const currentTheme = (darkModeStatus ?? DARK_MODE.SYSTEM) as TDarkMode;
+	const theme = themeMeta[currentTheme];
+	const cycleTheme = () => setDarkModeStatus(theme.next);
 
 	const save = SAVE_STATE_META[meta.savingState];
 	const isRunning = run.status === 'running';
@@ -170,6 +185,32 @@ const Topbar = () => {
 
 				<ToolButton icon='Share08' label='Share' />
 				<ToolButton icon='Setting07' label='Settings' />
+				<ToolButton
+					icon={theme.icon}
+					label={`${theme.label} — click to switch to ${themeMeta[theme.next].label.replace('Theme: ', '')}`}
+					onClick={cycleTheme}
+				/>
+
+				<button
+					type='button'
+					onClick={toggleAiPanel}
+					title='AI Builder (⌘K)'
+					aria-label='AI Builder'
+					className={[
+						'group relative ml-1 inline-flex h-9 items-center gap-1.5 overflow-hidden rounded-lg px-3 text-xs font-semibold transition focus:outline-none focus:ring-2 focus:ring-violet-500/40',
+						aiOpen
+							? 'bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-md shadow-violet-500/40 ring-1 ring-violet-600/30'
+							: 'border border-violet-200 bg-white text-violet-700 hover:border-violet-300 hover:bg-violet-50 dark:border-violet-500/30 dark:bg-zinc-900 dark:text-violet-300 dark:hover:border-violet-500/60 dark:hover:bg-violet-500/10',
+					].join(' ')}>
+					{!aiOpen && (
+						<span className='pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-violet-500/10 to-transparent transition-transform duration-700 group-hover:translate-x-full' />
+					)}
+					<Icon
+						icon='Sparkles'
+						className='relative text-sm transition-transform group-hover:rotate-12'
+					/>
+					<span className='relative'>AI</span>
+				</button>
 
 				<div className='ml-1'>
 					{isRunning ? (
