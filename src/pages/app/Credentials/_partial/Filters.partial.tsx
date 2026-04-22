@@ -8,7 +8,7 @@ import Dropdown, {
 	DropdownDivider,
 } from '@/components/ui/Dropdown';
 import { TCredentialType, TCredentialSortBy, TSortOrder } from '@/types/credential.type';
-import { TYPE_OPTIONS, SORT_OPTIONS } from '../_helper/credentials.helper';
+import { TYPE_OPTIONS, SORT_OPTIONS } from '../_helper/credentials.constants';
 
 interface IFiltersPartialProps {
 	typeFilter: TCredentialType | '';
