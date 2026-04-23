@@ -253,7 +253,11 @@ export const createEditorStore = () =>
 			}));
 		},
 
-		selectNode: (id) => set({ selectedNodeId: id }),
+		selectNode: (id) =>
+			set((s) => ({
+				selectedNodeId: id,
+				rightPanelOpen: id ? true : s.rightPanelOpen,
+			})),
 
 		setNodeStatus: (id, status, durationMs, error) =>
 			set((s) => ({
