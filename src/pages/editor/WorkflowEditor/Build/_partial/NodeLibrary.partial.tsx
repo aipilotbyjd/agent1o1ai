@@ -85,7 +85,7 @@ const NodeLibrary = () => {
 	if (!leftPanelOpen) return null;
 
 	return (
-		<aside className='flex h-full w-80 shrink-0 flex-col border-r-2 border-editorial-ink bg-white'>
+		<aside className='flex h-full w-96 shrink-0 flex-col border-r-2 border-editorial-ink bg-white'>
 			{/* Header */}
 			<div className='border-b-2 border-editorial-ink px-3 pb-3 pt-3'>
 				<div className='mb-2.5 flex items-center justify-between'>
