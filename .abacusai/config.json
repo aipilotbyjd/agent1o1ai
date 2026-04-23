@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(yarn tsc *)",
+      "Bash(cd /Users/jaydeep/Herd/agent1o1ai)"
+    ]
+  }
+}

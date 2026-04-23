@@ -52,6 +52,9 @@ export const useDemoSeed = () => {
 const BuildPage = () => {
 	useEditorHotkeys();
 	useAutosave();
+	const rightPanelOpen = useEditor((s) => s.rightPanelOpen);
+	const selectedNodeId = useEditor((s) => s.selectedNodeId);
+	const toggleRightPanel = useEditor((s) => s.toggleRightPanel);
 	// Note: useDemoSeed() intentionally not called so the empty-state template grid
 	// is the first thing the user sees. Uncomment to auto-hydrate a demo graph.
 	// useDemoSeed();
@@ -61,14 +64,24 @@ const BuildPage = () => {
 			<Topbar />
 			<div className='flex min-h-0 flex-1'>
 				<NodeLibrary />
-				<div className='flex min-w-0 flex-1 flex-col'>
+				<div className='relative flex min-w-0 flex-1 flex-col'>
 					<div className='relative min-h-0 flex-1'>
 						<Canvas />
 						<BottomDock />
 					</div>
 					<Console />
+					{rightPanelOpen && selectedNodeId && (
+						<div
+							className='absolute inset-0 z-50 flex items-center justify-center bg-editorial-ink/45 px-4 py-3 backdrop-blur-sm'
+							onClick={toggleRightPanel}>
+							<div
+								className='h-full max-h-[96vh] w-full max-w-[760px] overflow-hidden'
+								onClick={(e) => e.stopPropagation()}>
+								<Inspector />
+							</div>
+						</div>
+					)}
 				</div>
-				<Inspector />
 			</div>
 			<AiAssistant />
 			<CommandPalette />
