@@ -21,7 +21,7 @@ const FieldRenderer = ({
 	variables: ReturnType<typeof collectUpstreamVariables>;
 }) => {
 	const common =
-		'w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-800 shadow-sm outline-none transition placeholder:text-zinc-400 hover:border-zinc-400 focus:border-[#ff6d5a] focus:ring-2 focus:ring-[#ff6d5a]/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:hover:border-zinc-600 dark:focus:border-[#ff6d5a]';
+		'w-full rounded-none border-2 border-editorial-ink bg-white px-3 py-2 text-sm text-editorial-ink outline-none transition placeholder:text-editorial-ink/40 focus:bg-editorial-bg focus:ring-2 focus:ring-editorial-ink/20';
 
 	switch (field.kind) {
 		case 'text':
@@ -32,7 +32,7 @@ const FieldRenderer = ({
 					className={common}
 					value={(value as string) ?? ''}
 					onChange={(e) => onChange(e.target.value)}>
-					<option value=''>Select an option...</option>
+					<option value=''>— Select —</option>
 					{field.options.map((o) => (
 						<option key={o.value} value={o.value}>
 							{o.label}
@@ -64,13 +64,11 @@ const FieldRenderer = ({
 					role='switch'
 					aria-checked={on}
 					onClick={() => onChange(!on)}
-					className={`inline-flex h-6 w-11 items-center rounded-full transition ${
-						on
-							? 'bg-[#ff6d5a]'
-							: 'bg-zinc-300 dark:bg-zinc-700'
+					className={`inline-flex h-6 w-11 items-center rounded-none border-2 border-editorial-ink transition ${
+						on ? 'bg-editorial-ink' : 'bg-editorial-bg'
 					}`}>
 					<span
-						className={`h-5 w-5 transform rounded-full bg-white shadow transition ${on ? 'translate-x-[22px]' : 'translate-x-0.5'}`}
+						className={`h-4 w-4 transform rounded-none border border-editorial-ink bg-white shadow transition ${on ? 'translate-x-[22px]' : 'translate-x-0.5'}`}
 					/>
 				</button>
 			);
@@ -81,7 +79,7 @@ const FieldRenderer = ({
 					className={common}
 					value={(value as string) ?? ''}
 					onChange={(e) => onChange(e.target.value)}>
-					<option value=''>Select an option...</option>
+					<option value=''>— Select —</option>
 					{field.options?.map((o) => (
 						<option key={o.value} value={o.value}>
 							{o.label}
@@ -95,7 +93,7 @@ const FieldRenderer = ({
 				<div>
 					<textarea
 						rows={field.rows ?? 4}
-						className={`${common} font-mono text-[13px] leading-relaxed`}
+						className={`${common} font-mono text-[12px] leading-relaxed tracking-tighter`}
 						placeholder={field.placeholder}
 						value={(value as string) ?? ''}
 						onChange={(e) => onChange(e.target.value)}
@@ -106,7 +104,7 @@ const FieldRenderer = ({
 								<button
 									key={`${v.nodeId}:${v.outputId}`}
 									onClick={() => onInsertVar(v.token)}
-									className='rounded-md border border-[#ff6d5a]/30 bg-[#ff6d5a]/10 px-2 py-0.5 font-mono text-[10px] text-[#c9513f] transition hover:bg-[#ff6d5a]/20 dark:text-[#ff9183]'>
+									className='rounded-none border border-editorial-ink bg-white px-1.5 py-0.5 font-mono text-[10px] tracking-tighter text-editorial-ink hover:bg-editorial-bg'>
 									{v.token}
 								</button>
 							))}
@@ -122,7 +120,7 @@ const FieldRenderer = ({
 						<div key={i} className='flex gap-1.5'>
 							<input
 								className={common}
-								placeholder='Name'
+								placeholder='key'
 								value={r.k}
 								onChange={(e) => {
 									const next = [...rows];
@@ -132,7 +130,7 @@ const FieldRenderer = ({
 							/>
 							<input
 								className={common}
-								placeholder='Value'
+								placeholder='value'
 								value={r.v}
 								onChange={(e) => {
 									const next = [...rows];
@@ -141,17 +139,17 @@ const FieldRenderer = ({
 								}}
 							/>
 							<button
-								className='inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-zinc-400 hover:bg-rose-50 hover:text-rose-500 dark:hover:bg-rose-500/10'
+								className='inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-none border-2 border-editorial-ink bg-white text-editorial-ink/60 transition hover:bg-rose-100 hover:text-rose-600'
 								onClick={() => onChange(rows.filter((_, idx) => idx !== i))}>
 								<Icon icon='Cancel01' className='text-sm' />
 							</button>
 						</div>
 					))}
 					<button
-						className='inline-flex items-center gap-1.5 rounded-md border border-dashed border-zinc-300 px-3 py-1.5 text-xs font-medium text-zinc-500 transition hover:border-[#ff6d5a] hover:text-[#ff6d5a] dark:border-zinc-700'
+						className='inline-flex items-center gap-1.5 rounded-none border-2 border-dashed border-editorial-ink/40 bg-white px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-editorial-ink/60 transition hover:border-editorial-ink hover:bg-editorial-bg hover:text-editorial-ink'
 						onClick={() => onChange([...rows, { k: '', v: '' }])}>
 						<Icon icon='PlusSign' className='text-sm' />
-						Add parameter
+						Add row
 					</button>
 				</div>
 			);
@@ -168,10 +166,10 @@ const FieldRenderer = ({
 								onClick={() =>
 									onChange(on ? arr.filter((x) => x !== o.value) : [...arr, o.value])
 								}
-								className={`rounded-full border px-2.5 py-1 text-xs font-medium transition ${
+								className={`rounded-none border-2 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest transition ${
 									on
-										? 'border-[#ff6d5a] bg-[#ff6d5a]/10 text-[#c9513f] dark:text-[#ff9183]'
-										: 'border-zinc-300 text-zinc-600 hover:border-zinc-400 dark:border-zinc-700 dark:text-zinc-400'
+										? 'border-editorial-ink bg-editorial-ink text-white'
+										: 'border-editorial-ink/30 bg-white text-editorial-ink/70 hover:border-editorial-ink hover:bg-editorial-bg'
 								}`}>
 								{o.label}
 							</button>
@@ -193,13 +191,14 @@ const TABS: Array<{ key: 'settings' | 'output' | 'data' | 'docs'; label: string;
 ];
 
 const PortPill = ({ name, type }: { name: string; type: string }) => (
-	<span className='inline-flex items-center gap-1.5 rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-[11px] dark:border-zinc-800 dark:bg-zinc-900'>
+	<span className='inline-flex items-center gap-1.5 rounded-none border-2 border-editorial-ink bg-white px-2 py-1 text-[10px] shadow-editorial-soft'>
 		<span
-			className='h-2 w-2 rounded-full ring-2 ring-white dark:ring-zinc-900'
+			className='h-2 w-2 rounded-none border border-editorial-ink'
 			style={{ backgroundColor: PORT_TYPE_COLOR[type] ?? PORT_TYPE_COLOR.any }}
 		/>
-		<span className='font-medium text-zinc-700 dark:text-zinc-200'>{name}</span>
-		<span className='font-mono text-[10px] text-zinc-400'>{type}</span>
+		<span className='font-serif font-black italic text-editorial-ink'>{name}</span>
+		<span className='text-editorial-ink/30'>·</span>
+		<span className='font-mono text-[9px] tracking-tighter text-editorial-ink/60'>{type}</span>
 	</span>
 );
 
@@ -235,35 +234,34 @@ const Inspector = () => {
 	const requiredCount = def.fields.filter((f) => f.required).length;
 
 	return (
-		<div className='flex h-full min-h-0 w-full flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-[0_24px_60px_-20px_rgba(0,0,0,0.35)] dark:border-zinc-800 dark:bg-zinc-950'>
+		<div className='relative flex h-full min-h-0 w-full flex-col overflow-hidden border-2 border-editorial-ink bg-white shadow-[12px_12px_0px_rgba(26,26,26,0.18)]'>
+			{/* Accent strip (node hue) */}
+			<div className={`h-1.5 w-full border-b-2 border-editorial-ink ${hue.bg.replace('/10', '/70')}`} aria-hidden='true' />
+
 			{/* Header */}
-			<div className='relative border-b border-zinc-200 dark:border-zinc-800'>
-				<div
-					className={`pointer-events-none absolute inset-x-0 top-0 h-20 opacity-40 ${hue.bg}`}
-					aria-hidden='true'
-				/>
-				<div className='relative px-5 pt-4 pb-3'>
+			<div className='relative border-b-2 border-editorial-ink'>
+				<div className={`pointer-events-none absolute inset-0 opacity-50 ${hue.bg}`} aria-hidden='true' />
+				<div className='relative px-4 pt-4 pb-3'>
 					<div className='flex items-start justify-between gap-3'>
 						<div className='flex min-w-0 flex-1 items-center gap-3'>
-							<span
-								className='flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-zinc-200 bg-white text-xl leading-none shadow-sm dark:border-zinc-700 dark:bg-zinc-900'>
+							<span className='flex h-11 w-11 shrink-0 items-center justify-center rounded-none border-2 border-editorial-ink bg-white text-xl leading-none shadow-[3px_3px_0px_rgba(26,26,26,0.22)]'>
 								{def.icon}
 							</span>
 							<div className='min-w-0 flex-1'>
 								<input
-									className='w-full truncate bg-transparent text-[15px] font-semibold tracking-tight text-zinc-900 outline-none placeholder:text-zinc-400 dark:text-zinc-50'
+									className='w-full truncate bg-transparent font-serif text-[17px] font-black italic tracking-tight text-editorial-ink outline-none placeholder:text-editorial-ink/40'
 									value={node.data.label}
 									placeholder={def.label}
 									onChange={(e) => renameNode(node.id, e.target.value)}
 								/>
-								<div className='mt-0.5 flex items-center gap-2 text-[11px]'>
-									<span className='font-mono text-zinc-500 dark:text-zinc-400'>
+								<div className='mt-0.5 flex flex-wrap items-center gap-1.5 text-[10px]'>
+									<span className='font-mono tracking-tighter text-editorial-ink/60'>
 										{def.key}
 									</span>
-									<span className='text-zinc-300 dark:text-zinc-700'>•</span>
+									<span className='text-editorial-ink/30'>•</span>
 									<span
-										className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${statusMeta.className}`}>
-										<span className='h-1.5 w-1.5 rounded-full bg-current' />
+										className={`inline-flex items-center gap-1 rounded-none border border-editorial-ink/30 bg-white px-1.5 py-0.5 text-[9px] font-black uppercase tracking-widest ${statusMeta.className}`}>
+										<span className='h-1.5 w-1.5 rounded-none bg-current' />
 										{statusMeta.label}
 									</span>
 								</div>
@@ -274,34 +272,35 @@ const Inspector = () => {
 							onClick={toggleRight}
 							title='Close inspector'
 							aria-label='Close inspector'
-							className='inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-zinc-500 transition hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100'>
-							<Icon icon='Cancel01' className='text-[16px]' />
+							className='inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-none border-2 border-editorial-ink bg-white text-editorial-ink transition hover:bg-editorial-ink hover:text-white'>
+							<Icon icon='Cancel01' className='text-sm' />
 						</button>
 					</div>
-					<p className='mt-2 line-clamp-2 text-[12px] leading-relaxed text-zinc-500 dark:text-zinc-400'>
+					<p className='mt-2 line-clamp-2 font-mono text-[10px] leading-relaxed tracking-tighter text-editorial-ink/70'>
 						{def.description}
 					</p>
-					<div className='mt-3 grid grid-cols-2 gap-2'>
-						<div className='rounded-md border border-zinc-200 bg-zinc-50/60 px-2.5 py-1.5 dark:border-zinc-800 dark:bg-zinc-900/50'>
-							<div className='text-[10px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-500'>
+					<div className='mt-3 grid grid-cols-2 gap-1.5'>
+						<div className='border-2 border-editorial-ink bg-white px-2 py-1.5 shadow-editorial-soft'>
+							<div className='text-[9px] font-black uppercase tracking-widest text-editorial-ink/50'>
 								Node ID
 							</div>
-							<div className='truncate font-mono text-[11px] text-zinc-700 dark:text-zinc-300'>
+							<div className='truncate font-mono text-[10px] tracking-tighter text-editorial-ink'>
 								{node.id}
 							</div>
 						</div>
-						<div className='rounded-md border border-zinc-200 bg-zinc-50/60 px-2.5 py-1.5 dark:border-zinc-800 dark:bg-zinc-900/50'>
-							<div className='text-[10px] font-medium uppercase tracking-wide text-zinc-500 dark:text-zinc-500'>
+						<div className='border-2 border-editorial-ink bg-white px-2 py-1.5 shadow-editorial-soft'>
+							<div className='text-[9px] font-black uppercase tracking-widest text-editorial-ink/50'>
 								Connections
 							</div>
-							<div className='font-mono text-[11px] text-zinc-700 dark:text-zinc-300'>
-								{incomingCount} in · {outgoingCount} out
+							<div className='font-mono text-[10px] tracking-tighter text-editorial-ink'>
+								IN {incomingCount} · OUT {outgoingCount}
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div className='relative flex items-end gap-5 px-5'>
+				{/* Tabs */}
+				<div className='relative flex gap-px border-t-2 border-editorial-ink bg-editorial-ink px-px'>
 					{TABS.map((t) => {
 						const active = tab === t.key;
 						return (
@@ -310,35 +309,30 @@ const Inspector = () => {
 								type='button'
 								onClick={() => setTab(t.key)}
 								className={[
-									'relative inline-flex items-center gap-1.5 pb-2.5 text-[12px] font-medium transition',
+									'relative inline-flex flex-1 items-center justify-center gap-1.5 px-2 py-2 text-[10px] font-black uppercase tracking-widest transition',
 									active
-										? 'text-zinc-900 dark:text-zinc-50'
-										: 'text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200',
+										? 'bg-white text-editorial-ink'
+										: 'bg-editorial-ink text-white/70 hover:text-white',
 								].join(' ')}>
-								<Icon icon={t.icon} className='text-[14px]' />
+								<Icon icon={t.icon} className='text-[13px]' />
 								{t.label}
-								<span
-									className={[
-										'absolute -bottom-px left-0 right-0 h-0.5 rounded-full transition',
-										active ? 'bg-[#ff6d5a]' : 'bg-transparent',
-									].join(' ')}
-								/>
 							</button>
 						);
 					})}
 				</div>
 			</div>
 
-			<div className='flex-1 overflow-y-auto px-5 py-4'>
-				<div className='mb-4 flex gap-2.5 rounded-lg border border-[#ff6d5a]/25 bg-gradient-to-br from-[#ff6d5a]/[0.08] to-[#ff6d5a]/[0.02] p-3'>
-					<div className='flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#ff6d5a]/15 text-[#c9513f] dark:text-[#ff9183]'>
+			{/* Body */}
+			<div className='flex-1 overflow-y-auto px-4 py-4'>
+				<div className='mb-4 flex gap-2.5 border-2 border-editorial-ink bg-editorial-bg p-3 shadow-editorial-soft'>
+					<div className='flex h-7 w-7 shrink-0 items-center justify-center rounded-none border-2 border-editorial-ink bg-white text-editorial-ink'>
 						<Icon icon='Sparkles' className='text-sm' />
 					</div>
 					<div className='min-w-0'>
-						<div className='text-[11px] font-semibold text-zinc-800 dark:text-zinc-100'>
+						<div className='text-[10px] font-black uppercase tracking-widest text-editorial-ink'>
 							AI Recommendation
 						</div>
-						<div className='mt-0.5 text-[11px] leading-relaxed text-zinc-600 dark:text-zinc-400'>
+						<div className='mt-0.5 font-mono text-[10px] leading-relaxed tracking-tighter text-editorial-ink/70'>
 							Detected {incomingCount > 0 ? 'connected' : 'standalone'} node context. Keep prompts concise and return typed output for downstream reliability.
 						</div>
 					</div>
@@ -346,46 +340,38 @@ const Inspector = () => {
 
 				{tab === 'settings' && (
 					<div className='space-y-4'>
-						<div className='grid grid-cols-3 gap-2'>
-							<div className='rounded-md border border-zinc-200 bg-white px-2.5 py-2 text-center dark:border-zinc-800 dark:bg-zinc-900'>
-								<div className='text-[10px] font-medium uppercase tracking-wide text-zinc-500'>
-									Fields
+						<div className='grid grid-cols-3 gap-1.5'>
+							{([
+								['Fields', def.fields.length],
+								['Required', requiredCount],
+								['Variables', variables.length],
+							] as const).map(([label, n]) => (
+								<div
+									key={label}
+									className='border-2 border-editorial-ink bg-white px-2 py-2 text-center shadow-editorial-soft'>
+									<div className='text-[9px] font-black uppercase tracking-widest text-editorial-ink/50'>
+										{label}
+									</div>
+									<div className='mt-0.5 font-serif text-lg font-black italic text-editorial-ink'>
+										{n}
+									</div>
 								</div>
-								<div className='mt-0.5 font-mono text-sm font-semibold text-zinc-800 dark:text-zinc-100'>
-									{def.fields.length}
-								</div>
-							</div>
-							<div className='rounded-md border border-zinc-200 bg-white px-2.5 py-2 text-center dark:border-zinc-800 dark:bg-zinc-900'>
-								<div className='text-[10px] font-medium uppercase tracking-wide text-zinc-500'>
-									Required
-								</div>
-								<div className='mt-0.5 font-mono text-sm font-semibold text-zinc-800 dark:text-zinc-100'>
-									{requiredCount}
-								</div>
-							</div>
-							<div className='rounded-md border border-zinc-200 bg-white px-2.5 py-2 text-center dark:border-zinc-800 dark:bg-zinc-900'>
-								<div className='text-[10px] font-medium uppercase tracking-wide text-zinc-500'>
-									Variables
-								</div>
-								<div className='mt-0.5 font-mono text-sm font-semibold text-zinc-800 dark:text-zinc-100'>
-									{variables.length}
-								</div>
-							</div>
+							))}
 						</div>
 						{def.fields.length === 0 && (
-							<div className='rounded-lg border border-dashed border-zinc-300 p-8 text-center text-[12px] text-zinc-500 dark:border-zinc-700 dark:text-zinc-400'>
+							<div className='border-2 border-dashed border-editorial-ink/30 p-6 text-center font-mono text-[10px] tracking-tighter text-editorial-ink/50'>
 								This node has no configurable parameters.
 							</div>
 						)}
 						{def.fields.map((f) => (
 							<div key={f.key}>
-								<label className='mb-1.5 flex items-center justify-between gap-1 text-[12px] font-medium text-zinc-700 dark:text-zinc-300'>
+								<label className='mb-1.5 flex items-center justify-between gap-1 text-[10px] font-black uppercase tracking-widest text-editorial-ink/70'>
 									<span className='flex items-center gap-1'>
 										{f.label}
-										{f.required && <span className='text-[#ff6d5a]'>*</span>}
+										{f.required && <span className='text-rose-500'>*</span>}
 									</span>
 									{f.kind === 'credential' && (
-										<span className='inline-flex items-center gap-1 text-[10px] font-medium text-zinc-500'>
+										<span className='inline-flex items-center gap-1 border border-editorial-ink/40 bg-white px-1.5 py-0.5 text-[9px] font-medium text-editorial-ink/60'>
 											<Icon icon='Key01' className='text-xs' />
 											Credential
 										</span>
@@ -402,7 +388,7 @@ const Inspector = () => {
 									variables={variables}
 								/>
 								{f.help && (
-									<p className='mt-1.5 text-[11px] leading-relaxed text-zinc-500 dark:text-zinc-400'>
+									<p className='mt-1.5 font-mono text-[10px] leading-relaxed tracking-tighter text-editorial-ink/60'>
 										{f.help}
 									</p>
 								)}
@@ -414,16 +400,16 @@ const Inspector = () => {
 				{tab === 'output' && (
 					<div className='space-y-3'>
 						<div
-							className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium ${statusMeta.className}`}>
-							<span className='h-1.5 w-1.5 rounded-full bg-current' />
+							className={`inline-flex items-center gap-1.5 rounded-none border-2 border-editorial-ink px-2 py-1 text-[10px] font-black uppercase tracking-widest ${statusMeta.className}`}>
+							<span className='h-1.5 w-1.5 rounded-none bg-current' />
 							{statusMeta.label}
 							{node.data.durationMs != null && status === 'success' && (
-								<span className='font-mono opacity-70'>
+								<span className='font-mono tracking-tighter opacity-70'>
 									· {node.data.durationMs}ms
 								</span>
 							)}
 						</div>
-						<pre className='max-h-[60vh] overflow-auto whitespace-pre-wrap break-words rounded-lg border border-zinc-200 bg-zinc-50 p-3 font-mono text-[11px] leading-relaxed text-zinc-800 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200'>
+						<pre className='max-h-[60vh] overflow-auto whitespace-pre-wrap break-words border-2 border-editorial-ink bg-editorial-bg p-3 font-mono text-[10px] leading-relaxed tracking-tighter text-editorial-ink/80 shadow-editorial-soft'>
 							{status === 'success'
 								? `// mock output for ${node.data.label}\n{\n  "ok": true,\n  "duration": ${node.data.durationMs ?? 0}\n}`
 								: status === 'error'
@@ -436,19 +422,19 @@ const Inspector = () => {
 				{tab === 'data' && (
 					<div className='space-y-4'>
 						<div>
-							<div className='mb-1.5 text-[11px] font-medium uppercase tracking-wide text-zinc-500'>
+							<div className='mb-1.5 text-[10px] font-black uppercase tracking-widest text-editorial-ink/60'>
 								Runtime Values
 							</div>
-							<pre className='max-h-[32vh] overflow-auto whitespace-pre-wrap break-words rounded-lg border border-zinc-200 bg-zinc-50 p-3 font-mono text-[11px] leading-relaxed text-zinc-800 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200'>
+							<pre className='max-h-[32vh] overflow-auto whitespace-pre-wrap break-words border-2 border-editorial-ink bg-editorial-bg p-3 font-mono text-[10px] leading-relaxed tracking-tighter text-editorial-ink/80 shadow-editorial-soft'>
 								{JSON.stringify(node.data.values ?? {}, null, 2)}
 							</pre>
 						</div>
 						<div>
-							<div className='mb-1.5 text-[11px] font-medium uppercase tracking-wide text-zinc-500'>
+							<div className='mb-1.5 text-[10px] font-black uppercase tracking-widest text-editorial-ink/60'>
 								Upstream Variables
 							</div>
 							{variables.length === 0 ? (
-								<div className='rounded-lg border border-dashed border-zinc-300 p-5 text-center text-[11px] text-zinc-500 dark:border-zinc-700 dark:text-zinc-400'>
+								<div className='border-2 border-dashed border-editorial-ink/30 p-4 text-center font-mono text-[10px] tracking-tighter text-editorial-ink/50'>
 									No upstream variables available yet.
 								</div>
 							) : (
@@ -460,16 +446,16 @@ const Inspector = () => {
 											onClick={() => {
 												void navigator.clipboard?.writeText(v.token);
 											}}
-											className='flex items-center justify-between gap-2 rounded-md border border-zinc-200 bg-white px-2.5 py-2 text-left transition hover:border-[#ff6d5a]/50 hover:bg-[#ff6d5a]/[0.04] dark:border-zinc-800 dark:bg-zinc-900 dark:hover:bg-zinc-800/50'>
+											className='flex items-center justify-between gap-2 border-2 border-editorial-ink bg-white px-2 py-1.5 text-left shadow-editorial-soft transition hover:bg-editorial-bg'>
 											<div className='min-w-0'>
-												<div className='truncate font-mono text-[11px] text-zinc-800 dark:text-zinc-200'>
+												<div className='truncate font-mono text-[10px] tracking-tighter text-editorial-ink'>
 													{v.token}
 												</div>
-												<div className='truncate text-[10px] text-zinc-500'>
+												<div className='truncate font-mono text-[9px] tracking-tighter text-editorial-ink/50'>
 													{v.nodeLabel} · {v.outputName}
 												</div>
 											</div>
-											<Icon icon='Copy01' className='shrink-0 text-xs text-zinc-400' />
+											<Icon icon='Copy01' className='shrink-0 text-xs text-editorial-ink/60' />
 										</button>
 									))}
 								</div>
@@ -481,38 +467,32 @@ const Inspector = () => {
 				{tab === 'docs' && (
 					<div className='space-y-4'>
 						<div>
-							<div className='mb-1.5 text-[11px] font-medium uppercase tracking-wide text-zinc-500'>
+							<div className='mb-1.5 text-[10px] font-black uppercase tracking-widest text-editorial-ink/60'>
 								Identity
 							</div>
-							<dl className='divide-y divide-zinc-200 rounded-lg border border-zinc-200 bg-white text-[12px] dark:divide-zinc-800 dark:border-zinc-800 dark:bg-zinc-900'>
-								<div className='flex items-center justify-between gap-2 px-3 py-2'>
-									<dt className='text-zinc-500'>Type</dt>
-									<dd className='font-mono text-zinc-800 dark:text-zinc-200'>
-										{def.key}
-									</dd>
+							<dl className='border-2 border-editorial-ink bg-editorial-bg text-[10px] shadow-editorial-soft'>
+								<div className='flex items-center justify-between gap-2 border-b border-editorial-ink/30 px-3 py-2'>
+									<dt className='font-mono tracking-tighter text-editorial-ink/60'>Type</dt>
+									<dd className='font-mono tracking-tighter text-editorial-ink'>{def.key}</dd>
+								</div>
+								<div className='flex items-center justify-between gap-2 border-b border-editorial-ink/30 px-3 py-2'>
+									<dt className='font-mono tracking-tighter text-editorial-ink/60'>Category</dt>
+									<dd className='font-mono capitalize tracking-tighter text-editorial-ink'>{def.category}</dd>
 								</div>
 								<div className='flex items-center justify-between gap-2 px-3 py-2'>
-									<dt className='text-zinc-500'>Category</dt>
-									<dd className='font-mono capitalize text-zinc-800 dark:text-zinc-200'>
-										{def.category}
-									</dd>
-								</div>
-								<div className='flex items-center justify-between gap-2 px-3 py-2'>
-									<dt className='text-zinc-500'>Node ID</dt>
-									<dd className='truncate font-mono text-[11px] text-zinc-500'>
-										{node.id}
-									</dd>
+									<dt className='font-mono tracking-tighter text-editorial-ink/60'>Node ID</dt>
+									<dd className='truncate font-mono tracking-tighter text-editorial-ink/50'>{node.id}</dd>
 								</div>
 							</dl>
 						</div>
 
 						<div>
-							<div className='mb-1.5 text-[11px] font-medium uppercase tracking-wide text-zinc-500'>
+							<div className='mb-1.5 text-[10px] font-black uppercase tracking-widest text-editorial-ink/60'>
 								Inputs
 							</div>
 							<div className='flex flex-wrap gap-1.5'>
 								{def.inputs.length === 0 ? (
-									<span className='text-[12px] text-zinc-400'>None</span>
+									<span className='font-mono text-[10px] text-editorial-ink/40'>None</span>
 								) : (
 									def.inputs.map((p) => (
 										<PortPill key={p.id} name={p.name} type={p.type} />
@@ -522,12 +502,12 @@ const Inspector = () => {
 						</div>
 
 						<div>
-							<div className='mb-1.5 text-[11px] font-medium uppercase tracking-wide text-zinc-500'>
+							<div className='mb-1.5 text-[10px] font-black uppercase tracking-widest text-editorial-ink/60'>
 								Outputs
 							</div>
 							<div className='flex flex-wrap gap-1.5'>
 								{def.outputs.length === 0 ? (
-									<span className='text-[12px] text-zinc-400'>None</span>
+									<span className='font-mono text-[10px] text-editorial-ink/40'>None</span>
 								) : (
 									def.outputs.map((p) => (
 										<PortPill key={p.id} name={p.name} type={p.type} />
@@ -540,26 +520,26 @@ const Inspector = () => {
 			</div>
 
 			{/* Footer actions */}
-			<div className='flex gap-2 border-t border-zinc-200 bg-zinc-50/60 px-5 py-3 dark:border-zinc-800 dark:bg-zinc-900/40'>
+			<div className='flex gap-2 border-t-2 border-editorial-ink bg-editorial-bg px-3 py-3'>
 				<button
 					type='button'
 					onClick={duplicateSelected}
-					className='inline-flex flex-1 items-center justify-center gap-1.5 rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-[12px] font-medium text-zinc-700 shadow-sm transition hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:bg-zinc-800'>
+					className='inline-flex flex-1 items-center justify-center gap-1.5 border-2 border-editorial-ink bg-white px-3 py-2 text-[10px] font-black uppercase tracking-widest text-editorial-ink shadow-[3px_3px_0px_rgba(26,26,26,0.22)] transition hover:bg-editorial-bg active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'>
 					<Icon icon='Copy01' className='text-sm' />
 					Duplicate
 				</button>
 				<button
 					type='button'
 					onClick={deleteSelected}
-					className='inline-flex flex-1 items-center justify-center gap-1.5 rounded-md border border-rose-200 bg-white px-3 py-1.5 text-[12px] font-medium text-rose-600 shadow-sm transition hover:bg-rose-50 dark:border-rose-500/30 dark:bg-zinc-900 dark:text-rose-400 dark:hover:bg-rose-500/10'>
+					className='inline-flex flex-1 items-center justify-center gap-1.5 border-2 border-rose-500 bg-white px-3 py-2 text-[10px] font-black uppercase tracking-widest text-rose-600 shadow-[3px_3px_0px_rgba(244,63,94,0.28)] transition hover:bg-rose-50 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'>
 					<Icon icon='Delete02' className='text-sm' />
 					Delete
 				</button>
 				<button
 					type='button'
-					className='inline-flex flex-[1.4] items-center justify-center gap-1.5 rounded-md bg-[#ff6d5a] px-3 py-1.5 text-[12px] font-semibold text-white shadow-sm transition hover:bg-[#ef5c49] active:bg-[#e04f3c]'>
+					className='inline-flex flex-[1.4] items-center justify-center gap-1.5 border-2 border-editorial-ink bg-editorial-ink px-3 py-2 text-[10px] font-black uppercase tracking-widest text-white shadow-[4px_4px_0px_rgba(26,26,26,0.45)] transition hover:bg-opacity-90 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'>
 					<Icon icon='PlayCircle' className='text-sm' />
-					Execute node
+					Execute Node
 				</button>
 			</div>
 		</div>
