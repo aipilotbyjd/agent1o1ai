@@ -1,5 +1,5 @@
 import { useHotkeys } from 'react-hotkeys-hook';
-import { useEditor } from '../_context/EditorStore.context';
+import { useEditor } from '../_context/EditorStoreProvider.context';
 
 export const useEditorHotkeys = () => {
 	const undo = useEditor((s) => s.undo);

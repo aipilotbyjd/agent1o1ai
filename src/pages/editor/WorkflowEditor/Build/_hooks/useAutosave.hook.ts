@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useEditor, useEditorApi } from '../_context/EditorStore.context';
+import { useEditor, useEditorApi } from '../_context/EditorStoreProvider.context';
 import { AUTOSAVE_DEBOUNCE_MS } from '../_helper/builder.constants';
 
 /**

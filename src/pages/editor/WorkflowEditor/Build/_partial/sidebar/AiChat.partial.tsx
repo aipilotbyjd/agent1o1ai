@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Icon from '@/components/icon/Icon';
-import { useEditor, useEditorApi } from '../_context/EditorStore.context';
-import { NODE_CATALOG_MAP } from '../_helper/nodeCatalog.constants';
+import { useEditor, useEditorApi } from '../../_context/EditorStoreProvider.context';
+import { NODE_CATALOG_MAP } from '../../_helper/nodeCatalog.constants';
 
 type TChatRole = 'user' | 'assistant';
 
@@ -102,7 +102,7 @@ const buildPlan = (prompt: string): TGeneratedPlan => {
 };
 
 // ── Component ────────────────────────────────────────────────────────
-const AiAssistant = () => {
+const AiChat = () => {
 	const open = useEditor((s) => s.aiPanelOpen);
 	const toggle = useEditor((s) => s.toggleAiPanel);
 	const setMeta = useEditor((s) => s.setMeta);
@@ -467,4 +467,4 @@ const ThinkingBubble = () => (
 	</div>
 );
 
-export default AiAssistant;
+export default AiChat;

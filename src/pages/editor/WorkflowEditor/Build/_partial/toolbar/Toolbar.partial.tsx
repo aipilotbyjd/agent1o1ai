@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import Icon from '@/components/icon/Icon';
-import { useEditor } from '../_context/EditorStore.context';
+import { useEditor } from '../../_context/EditorStoreProvider.context';
 import useDarkMode from '@/hooks/useDarkMode';
 import DARK_MODE from '@/constants/darkMode.constant';
 import type { TIcons } from '@/types/icons.type';
@@ -64,7 +64,7 @@ const SAVE_STATE_META = {
 	},
 } as const;
 
-const Topbar = () => {
+const Toolbar = () => {
 	const meta = useEditor((s) => s.meta);
 	const setMeta = useEditor((s) => s.setMeta);
 	const run = useEditor((s) => s.run);
@@ -92,7 +92,7 @@ const Topbar = () => {
 	};
 	const currentTheme = (darkModeStatus ?? DARK_MODE.SYSTEM) as TDarkMode;
 	const theme = themeMeta[currentTheme];
-	const cycleTheme = () => setDarkModeStatus(theme.next);
+	const cycle_theme = () => setDarkModeStatus(theme.next);
 
 	const save = SAVE_STATE_META[meta.savingState];
 	const isRunning = run.status === 'running';
@@ -188,7 +188,7 @@ const Topbar = () => {
 				<ToolButton
 					icon={theme.icon}
 					label={`${theme.label} — click to switch to ${themeMeta[theme.next].label.replace('Theme: ', '')}`}
-					onClick={cycleTheme}
+					onClick={cycle_theme}
 				/>
 
 				<button
@@ -239,4 +239,4 @@ const Topbar = () => {
 	);
 };
 
-export default Topbar;
+export default Toolbar;

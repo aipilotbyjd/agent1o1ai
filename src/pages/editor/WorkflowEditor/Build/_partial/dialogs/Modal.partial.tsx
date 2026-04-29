@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Icon from '@/components/icon/Icon';
 
-interface EditorialModalProps {
+interface ModalProps {
 	isOpen: boolean;
 	onClose: () => void;
 	title: string;
@@ -10,7 +10,7 @@ interface EditorialModalProps {
 	accentColor?: string; // e.g., 'bg-indigo-500', 'bg-emerald-500', 'bg-rose-500'
 }
 
-export const EditorialModal: React.FC<EditorialModalProps> = ({
+export const Modal: React.FC<ModalProps> = ({
 	isOpen,
 	onClose,
 	title,
@@ -73,4 +73,4 @@ export const EditorialModal: React.FC<EditorialModalProps> = ({
 	);
 };
 
-export default EditorialModal;
+export default Modal;

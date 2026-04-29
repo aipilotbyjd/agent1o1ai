@@ -1,10 +1,10 @@
 import { useMemo, useRef, useState } from 'react';
 import Fuse from 'fuse.js';
 import Icon from '@/components/icon/Icon';
-import { NODE_CATALOG, CATEGORY_META } from '../_helper/nodeCatalog.constants';
-import { HUE_TO_CLASSES } from '../_helper/builder.constants';
-import type { TNodeDefinition } from '../../_types/editor.type';
-import { useEditor } from '../_context/EditorStore.context';
+import { NODE_CATALOG, CATEGORY_META } from '../../_helper/nodeCatalog.constants';
+import { HUE_TO_CLASSES } from '../../_helper/builder.constants';
+import type { TNodeDefinition } from '../../../_types/editor.type';
+import { useEditor } from '../../_context/EditorStoreProvider.context';
 
 const CATEGORY_DOT: Record<string, string> = {
 	sky: 'bg-sky-500',
@@ -21,7 +21,7 @@ const CATEGORY_DOT: Record<string, string> = {
 	zinc: 'bg-zinc-400',
 };
 
-const NodeLibrary = () => {
+const NodePanel = () => {
 	const [q, setQ] = useState('');
 	const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
 	const [activeCat, setActiveCat] = useState<string>('all');
@@ -288,4 +288,4 @@ const NodeLibrary = () => {
 	);
 };
 
-export default NodeLibrary;
+export default NodePanel;

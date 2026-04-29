@@ -7,10 +7,10 @@ import {
 	type EdgeProps,
 } from '@xyflow/react';
 import Icon from '@/components/icon/Icon';
-import { useEditor } from '../_context/EditorStore.context';
-import QuickNodePicker from './QuickNodePicker.partial';
+import { useEditor } from '../../_context/EditorStoreProvider.context';
+import AddNodeDialog from '../dialogs/AddNodeDialog.partial';
 
-const AddableEdge = (props: EdgeProps) => {
+const ClickEdge = (props: EdgeProps) => {
 	const {
 		id,
 		sourceX,
@@ -72,7 +72,7 @@ const AddableEdge = (props: EdgeProps) => {
 			</EdgeLabelRenderer>
 			{pickerAt && (
 				<EdgeLabelRenderer>
-					<QuickNodePicker
+					<AddNodeDialog
 						anchor={pickerAt}
 						onPick={handlePick}
 						onClose={closePicker}
@@ -84,4 +84,4 @@ const AddableEdge = (props: EdgeProps) => {
 	);
 };
 
-export default AddableEdge;
+export default ClickEdge;

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Fuse from 'fuse.js';
 import Icon from '@/components/icon/Icon';
-import { useEditor } from '../_context/EditorStore.context';
-import { NODE_CATALOG, CATEGORY_META } from '../_helper/nodeCatalog.constants';
-import { HUE_TO_CLASSES } from '../_helper/builder.constants';
+import { useEditor } from '../../_context/EditorStoreProvider.context';
+import { NODE_CATALOG, CATEGORY_META } from '../../_helper/nodeCatalog.constants';
+import { HUE_TO_CLASSES } from '../../_helper/builder.constants';
 import type { TIcons } from '@/types/icons.type';
 
 type TCommand = {
@@ -16,7 +16,7 @@ type TCommand = {
 	run: () => void;
 };
 
-const CommandPalette = () => {
+const SearchDialog = () => {
 	const open = useEditor((s) => s.commandPaletteOpen);
 	const close = () => setCommandPaletteOpen(false);
 
@@ -369,4 +369,4 @@ const CommandPalette = () => {
 	);
 };
 
-export default CommandPalette;
+export default SearchDialog;

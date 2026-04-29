@@ -1,17 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Fuse from 'fuse.js';
 import Icon from '@/components/icon/Icon';
-import { NODE_CATALOG, CATEGORY_META } from '../_helper/nodeCatalog.constants';
-import { HUE_TO_CLASSES } from '../_helper/builder.constants';
+import { NODE_CATALOG, CATEGORY_META } from '../../_helper/nodeCatalog.constants';
+import { HUE_TO_CLASSES } from '../../_helper/builder.constants';
 
-export type TQuickNodePickerProps = {
+export type TAddNodeDialogProps = {
 	anchor: { x: number; y: number };
 	onPick: (defKey: string) => void;
 	onClose: () => void;
 	title?: string;
 };
 
-const QuickNodePicker = ({ anchor, onPick, onClose, title = 'Add node' }: TQuickNodePickerProps) => {
+const AddNodeDialog = ({ anchor, onPick, onClose, title = 'Add node' }: TAddNodeDialogProps) => {
 	const [q, setQ] = useState('');
 	const [cursor, setCursor] = useState(0);
 	const inputRef = useRef<HTMLInputElement>(null);
@@ -145,4 +145,4 @@ const QuickNodePicker = ({ anchor, onPick, onClose, title = 'Add node' }: TQuick
 	);
 };
 
-export default QuickNodePicker;
+export default AddNodeDialog;

@@ -1,10 +1,10 @@
 import { useMemo, useState } from 'react';
 import Icon from '@/components/icon/Icon';
-import { useEditor } from '../_context/EditorStore.context';
-import { NODE_CATALOG_MAP } from '../_helper/nodeCatalog.constants';
-import { HUE_TO_CLASSES, PORT_TYPE_COLOR, STATUS_BADGE } from '../_helper/builder.constants';
-import { collectUpstreamVariables } from '../_helper/variables.helper';
-import type { TNodeField } from '../../_types/editor.type';
+import { useEditor } from '../../_context/EditorStoreProvider.context';
+import { NODE_CATALOG_MAP } from '../../_helper/nodeCatalog.constants';
+import { HUE_TO_CLASSES, PORT_TYPE_COLOR, STATUS_BADGE } from '../../_helper/builder.constants';
+import { collectUpstreamVariables } from '../../_helper/variables.helper';
+import type { TNodeField } from '../../../_types/editor.type';
 import type { TIcons } from '@/types/icons.type';
 
 const FieldRenderer = ({
@@ -202,7 +202,7 @@ const PortPill = ({ name, type }: { name: string; type: string }) => (
 	</span>
 );
 
-const Inspector = () => {
+const NodeSettings = () => {
 	const rightPanelOpen = useEditor((s) => s.rightPanelOpen);
 	const selectedNodeId = useEditor((s) => s.selectedNodeId);
 	const nodes = useEditor((s) => s.nodes);
@@ -546,4 +546,4 @@ const Inspector = () => {
 	);
 };
 
-export default Inspector;
+export default NodeSettings;

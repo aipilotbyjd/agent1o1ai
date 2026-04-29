@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Icon from '@/components/icon/Icon';
-import { useEditor } from '../_context/EditorStore.context';
+import { useEditor } from '../../_context/EditorStoreProvider.context';
 
 const RUN_STATUS_META: Record<
 	string,
@@ -47,7 +47,7 @@ const LEVEL_META: Record<
 	error: { icon: 'CancelCircle', className: 'text-red-500' },
 };
 
-const Console = () => {
+const RunOutput = () => {
 	const open = useEditor((s) => s.consoleOpen);
 	const toggle = useEditor((s) => s.toggleConsole);
 	const run = useEditor((s) => s.run);
@@ -271,4 +271,4 @@ const LevelChip = ({
 	);
 };
 
-export default Console;
+export default RunOutput;

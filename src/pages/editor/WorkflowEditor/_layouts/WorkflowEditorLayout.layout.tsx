@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { EditorStoreProvider } from '../Build/_context/EditorStore.context';
+import { EditorStoreProvider } from '../Build/_context/EditorStoreProvider.context';
 
 const WorkflowEditorLayout = ({ children }: { children: ReactNode }) => (
 	<EditorStoreProvider>

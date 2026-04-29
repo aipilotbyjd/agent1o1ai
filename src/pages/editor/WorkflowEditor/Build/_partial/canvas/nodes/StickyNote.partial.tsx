@@ -1,5 +1,5 @@
 import { type NodeProps } from '@xyflow/react';
-import type { TCanvasNodeData } from '../../../_types/editor.type';
+import type { TCanvasNodeData } from '../../../../_types/editor.type';
 
 const StickyNote = ({ data, selected }: NodeProps) => {
 	const d = data as TCanvasNodeData;

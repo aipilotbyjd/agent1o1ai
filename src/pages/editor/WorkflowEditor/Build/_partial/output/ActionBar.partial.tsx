@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Icon from '@/components/icon/Icon';
-import { useEditor } from '../_context/EditorStore.context';
-import QuickNodePicker from './QuickNodePicker.partial';
+import { useEditor } from '../../_context/EditorStoreProvider.context';
+import AddNodeDialog from '../dialogs/AddNodeDialog.partial';
 import type { TIcons } from '@/types/icons.type';
 
 type TDockBtn = {
@@ -47,7 +47,7 @@ const Divider = () => (
 	<div className='mx-1 h-6 w-px bg-editorial-ink/20' aria-hidden='true' />
 );
 
-const BottomDock = () => {
+const ActionBar = () => {
 	const runWorkflow = useEditor((s) => s.runWorkflow);
 	const stopRun = useEditor((s) => s.stopRun);
 	const runAutoLayout = useEditor((s) => s.runAutoLayout);
@@ -103,9 +103,9 @@ const BottomDock = () => {
 			</div>
 
 			{pickerAt && (
-				<QuickNodePicker
+				<AddNodeDialog
 					anchor={pickerAt}
-					onPick={(key) => {
+					onPick={(key: string) => {
 						addNode(key, { x: 240, y: 200 });
 						setPickerAt(null);
 					}}
@@ -116,4 +116,4 @@ const BottomDock = () => {
 	);
 };
 
-export default BottomDock;
+export default ActionBar;

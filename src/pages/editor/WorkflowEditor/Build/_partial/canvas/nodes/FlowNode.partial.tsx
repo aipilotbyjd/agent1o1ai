@@ -1,11 +1,11 @@
 import { Handle, Position, type NodeProps } from '@xyflow/react';
-import type { TCanvasNodeData } from '../../../_types/editor.type';
-import { NODE_CATALOG_MAP } from '../../_helper/nodeCatalog.constants';
+import type { TCanvasNodeData } from '../../../../_types/editor.type';
+import { NODE_CATALOG_MAP } from '../../../_helper/nodeCatalog.constants';
 import {
 	HUE_TO_CLASSES,
 	PORT_TYPE_COLOR,
 	STATUS_BADGE,
-} from '../../_helper/builder.constants';
+} from '../../../_helper/builder.constants';
 
 const HUE_TO_GRADIENT: Record<string, string> = {
 	sky: 'from-sky-400 to-sky-600',
@@ -33,7 +33,7 @@ const STATUS_DOT: Record<string, string> = {
 	skipped: 'bg-zinc-400',
 };
 
-const BaseNode = ({ data, selected }: NodeProps) => {
+const FlowNode = ({ data, selected }: NodeProps) => {
 	const d = data as TCanvasNodeData;
 	const def = NODE_CATALOG_MAP[d.defKey];
 	if (!def) return null;
@@ -191,4 +191,4 @@ const BaseNode = ({ data, selected }: NodeProps) => {
 	);
 };
 
-export default BaseNode;
+export default FlowNode;

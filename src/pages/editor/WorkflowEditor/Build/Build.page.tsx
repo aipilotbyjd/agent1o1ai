@@ -1,53 +1,16 @@
-import { useEffect } from 'react';
-import Canvas from './_partial/Canvas.partial';
-import NodeLibrary from './_partial/NodeLibrary.partial';
-import Inspector from './_partial/Inspector.partial';
-import Topbar from './_partial/Topbar.partial';
-import Console from './_partial/Console.partial';
-import AiAssistant from './_partial/AiAssistant.partial';
-import CommandPalette from './_partial/CommandPalette.partial';
-import BottomDock from './_partial/BottomDock.partial';
+import Canvas from './_partial/canvas/Canvas.partial';
+import NodePanel from './_partial/sidebar/NodePanel.partial';
+import NodeSettings from './_partial/sidebar/NodeSettings.partial';
+import Toolbar from './_partial/toolbar/Toolbar.partial';
+import RunOutput from './_partial/output/RunOutput.partial';
+import AiChat from './_partial/sidebar/AiChat.partial';
+import SearchDialog from './_partial/dialogs/SearchDialog.partial';
+import ActionBar from './_partial/output/ActionBar.partial';
 import { useEditorHotkeys } from './_hooks/useEditorHotkeys.hook';
 import { useAutosave } from './_hooks/useAutosave.hook';
-import { useEditor, useEditorApi } from './_context/EditorStore.context';
-import { NODE_CATALOG_MAP } from './_helper/nodeCatalog.constants';
+import { useEditor } from './_context/EditorStoreProvider.context';
 
-/**
- * Hydrates a demo workflow if the store is empty.
- * Replace with server hydration (`useWorkflow(id)`) when the API is ready.
- * Currently unused so the empty-state template grid is visible on first load;
- * invoke inside `BuildPage` to restore the demo graph.
- */
-export const useDemoSeed = () => {
-	const api = useEditorApi();
-	const nodesLen = useEditor((s) => s.nodes.length);
-
-	useEffect(() => {
-		if (nodesLen > 0) return;
-		const { addNodeFromCatalog, onConnect, setMeta } = api.getState();
-		setMeta({ name: 'Research & Summarise' });
-
-		const a = addNodeFromCatalog('input.ask_ai', { x: 60, y: 160 });
-		const b = addNodeFromCatalog('scrape.url', { x: 360, y: 160 });
-		const c = addNodeFromCatalog('ai.chat', { x: 680, y: 120 });
-		const d = addNodeFromCatalog('ai.summarize', { x: 1000, y: 120 });
-		const e = addNodeFromCatalog('output.display', { x: 1300, y: 160 });
-
-		const portOut = (key: string) => NODE_CATALOG_MAP[key].outputs[0]?.id;
-		const portIn = (key: string) => NODE_CATALOG_MAP[key].inputs[0]?.id;
-
-		if (a && b)
-			onConnect({ source: a, target: b, sourceHandle: portOut('input.ask_ai'), targetHandle: portIn('scrape.url') });
-		if (b && c)
-			onConnect({ source: b, target: c, sourceHandle: portOut('scrape.url'), targetHandle: portIn('ai.chat') });
-		if (c && d)
-			onConnect({ source: c, target: d, sourceHandle: portOut('ai.chat'), targetHandle: portIn('ai.summarize') });
-		if (d && e)
-			onConnect({ source: d, target: e, sourceHandle: portOut('ai.summarize'), targetHandle: portIn('output.display') });
-
-		api.getState().setMeta({ savingState: 'saved' });
-	}, [api, nodesLen]);
-};
+export { useDemoSeed } from './_hooks/useDemoSeed.hook';
 
 const BuildPage = () => {
 	useEditorHotkeys();
@@ -61,15 +24,15 @@ const BuildPage = () => {
 
 	return (
 		<div className='flex h-full min-h-0 flex-1 flex-col'>
-			<Topbar />
+			<Toolbar />
 			<div className='flex min-h-0 flex-1'>
-				<NodeLibrary />
+				<NodePanel />
 				<div className='relative flex min-w-0 flex-1 flex-col'>
 					<div className='relative min-h-0 flex-1'>
 						<Canvas />
-						<BottomDock />
+						<ActionBar />
 					</div>
-					<Console />
+					<RunOutput />
 					{rightPanelOpen && selectedNodeId && (
 						<div
 							className='absolute inset-0 z-50 flex items-center justify-center bg-editorial-ink/45 px-4 py-3 backdrop-blur-sm'
@@ -77,14 +40,14 @@ const BuildPage = () => {
 							<div
 								className='h-full max-h-[96vh] w-full max-w-[760px] overflow-hidden'
 								onClick={(e) => e.stopPropagation()}>
-								<Inspector />
+								<NodeSettings />
 							</div>
 						</div>
 					)}
 				</div>
 			</div>
-			<AiAssistant />
-			<CommandPalette />
+			<AiChat />
+			<SearchDialog />
 		</div>
 	);
 };

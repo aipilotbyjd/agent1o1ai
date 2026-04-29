@@ -10,20 +10,20 @@ import {
 	type OnConnectEnd,
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
-import { useEditor, useEditorApi } from '../_context/EditorStore.context';
-import { NODE_CATALOG_MAP } from '../_helper/nodeCatalog.constants';
-import BaseNode from './nodes/BaseNode.partial';
+import { useEditor, useEditorApi } from '../../_context/EditorStoreProvider.context';
+import { NODE_CATALOG_MAP } from '../../_helper/nodeCatalog.constants';
+import FlowNode from './nodes/FlowNode.partial';
 import StickyNote from './nodes/StickyNote.partial';
-import AddableEdge from './AddableEdge.partial';
-import QuickNodePicker from './QuickNodePicker.partial';
+import ClickEdge from './ClickEdge.partial';
+import AddNodeDialog from '../dialogs/AddNodeDialog.partial';
 
 const nodeTypes: NodeTypes = {
-	base: BaseNode,
+	base: FlowNode,
 	sticky: StickyNote,
 };
 
 const edgeTypes: EdgeTypes = {
-	addable: AddableEdge,
+	addable: ClickEdge,
 };
 
 type TTemplate = {
@@ -370,7 +370,7 @@ const CanvasInner = () => {
 			)}
 
 			{dropPicker && (
-				<QuickNodePicker
+				<AddNodeDialog
 					anchor={dropPicker.screen}
 					onPick={handleDropPick}
 					onClose={() => setDropPicker(null)}
